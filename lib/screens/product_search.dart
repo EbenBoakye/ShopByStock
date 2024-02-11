@@ -29,7 +29,7 @@ class ProductSearch extends StatelessWidget {
                   Navigator.maybePop(context);
                 },
                 child: const Text(
-                  'Go back to home',
+                  'Go back to homeeee',
                   style: TextStyle(color: Colors.red, fontSize: 16),
                 ),
               ),
