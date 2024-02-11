@@ -12,7 +12,7 @@ class ProductSearch extends StatelessWidget {
           child: Column(
             children: [
               const SizedBox(height: 300),
-              const Text('Type a product name or barcode', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20)),
+              const Text('Type a product name or barcodeee', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20)),
               const SizedBox(height: 20),
               const TextField(
                 decoration: InputDecoration(
