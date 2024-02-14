@@ -73,7 +73,7 @@ class _ShopBystockState extends State<ShopBystock> {
                     // Handle Admin Log-in navigation
                   },
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.red),
+                    backgroundColor: MaterialStateProperty.all(Colors.blue),
                   ),
                   child: const Text(
                     'Admin Log-in',
