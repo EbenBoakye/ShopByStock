@@ -15,6 +15,7 @@ class ProductSearch extends StatelessWidget {
           icon: const Icon(Icons.menu), // The hamburger "menu" icon
           onPressed: () {
             Scaffold.of(context).openDrawer();
+            // openDrawer();
           },
         ),
         title: Image.asset('/Users/student/dev/projects/shopby/assets/images/shopby.png', fit: BoxFit.cover, width: 250, height: 250),
@@ -70,9 +71,9 @@ class ProductSearch extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            const SizedBox(height: 240),
+            const SizedBox(height: 200),
             const Text('Type a product name or barcode', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24,)),
-            const SizedBox(height: 20),
+            const SizedBox(height: 30),
            TextField(
   decoration: InputDecoration(
     filled: true,
@@ -94,18 +95,26 @@ class ProductSearch extends StatelessWidget {
       borderSide: BorderSide.none, // Usually no border when the TextField is enabled and not focused
     ),
   ),
-  style: TextStyle(color: Colors.black), // Text color
+  style: const TextStyle(color: Colors.black), // Text color
 ),
 
-            TextButton(
-              onPressed: () {
-                Navigator.maybePop(context);
-              },
-              child: const Text(
-                'Submit',
-                style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ),
+const SizedBox(height: 30),
+            ElevatedButton(
+  onPressed: () {
+    // Your submit functionality here
+  },
+  
+  style: ElevatedButton.styleFrom(
+    backgroundColor: Color.fromARGB(255, 18, 62, 97), // Button background color
+    foregroundColor: Colors.white, // Button text color
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(30.0), // Rounded edges
+    ),
+     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15), // Button padding
+  ),
+  child: Text('Submit'),
+)
+
           ],
         ),
       ),
