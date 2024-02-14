@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:shopby/screens/landing_page.dart';
-import 'package:shopby/screens/product_search.dart';
+
 
 class TopMatch extends StatelessWidget {
-  const TopMatch(Key? key) : super(key: key);
+   const TopMatch({Key? key}) : super(key: key);
   
   @override
   Widget build(BuildContext context) {
@@ -24,6 +23,7 @@ class TopMatch extends StatelessWidget {
         // If you want to remove the shadow, set elevation to 0
         elevation: 0,
       ),
+     
      );
   }
 }
