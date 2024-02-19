@@ -77,7 +77,7 @@ class TopMatch extends StatelessWidget {
                 // This builds a list of similar products cards
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(), // to disable ListView's scrolling
-                itemCount: 3, // The count of similar products
+                itemCount: 4, // The count of similar products
                 itemBuilder: (context, index) {
                   return const Card(
                     child: ListTile(
