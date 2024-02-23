@@ -17,17 +17,18 @@ class Homepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-       //home: const ShopBystock(),
+       home: const ShopBystock(),
        //home: const RegistrationPage(),
       //home: const TopMatch(),
       //home: const ProductSearch(),
-      home: const LoginPage(),
+      //home: const LoginPage(),
 
      routes: {
       
       '/product_search': (context) => const ProductSearch(),
       '/top_match': (context) => const TopMatch(),
       '/regpage': (context) => const RegistrationPage(),
+      '/login': (context) => const LoginPage(),
       
      },
     );

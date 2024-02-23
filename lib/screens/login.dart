@@ -16,15 +16,11 @@ class LoginPage extends StatelessWidget {
             // Handle drawer open here
           },
         ),
-        title: const Text('shop by stock'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.power_settings_new),
-            onPressed: () {
-              // Handle the action for this icon (e.g., log out)
-            },
-          ),
-        ],
+        title: Image.asset(
+          'assets/images/shopby.png', // Update with the correct asset path
+          fit: BoxFit.cover,
+          height: 250, // Adjust the size as necessary
+        ),
       ),
       body: Center(
         child: SingleChildScrollView(

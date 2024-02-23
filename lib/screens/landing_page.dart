@@ -70,7 +70,7 @@ class _ShopBystockState extends State<ShopBystock> {
               Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    // Handle Admin Log-in navigation
+                    Navigator.pushReplacementNamed(context, '/login');// Handle Admin log-in navigation
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.blue),
