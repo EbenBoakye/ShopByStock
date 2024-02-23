@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shopby/screens/product_search.dart';
 
 class ShopBystock extends StatefulWidget {
-  const ShopBystock({Key? key}) : super(key: key);
+  const ShopBystock({super.key});
 
   @override
   State<ShopBystock> createState() => _ShopBystockState();
@@ -41,7 +41,7 @@ class _ShopBystockState extends State<ShopBystock> {
               Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    // Handle Admin sign up navigation
+                    Navigator.pushReplacementNamed(context, '/regpage');// Handle Admin sign up navigation
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.blue),

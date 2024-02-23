@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shopby/screens/top_match.dart';
+
+
 
 class ProductSearch extends StatelessWidget {
   const ProductSearch({Key? key}) : super(key: key);
@@ -8,113 +11,94 @@ class ProductSearch extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.blue,
       appBar: AppBar(
-        // You can set the background color to match your Scaffold's background or use a different color
         backgroundColor: Colors.blue,
-        // Add leading IconButton that opens a drawer
         leading: IconButton(
-          icon: const Icon(Icons.menu), // The hamburger "menu" icon
+          icon: const Icon(Icons.menu),
           onPressed: () {
             Scaffold.of(context).openDrawer();
-            // openDrawer();
           },
         ),
-        title: Image.asset('/Users/student/dev/projects/shopby/assets/images/shopby.png', fit: BoxFit.cover, width: 250, height: 250),
-        // If you want to remove the shadow, set elevation to 0
+        title: Image.asset(
+          'assets/images/shopby.png', // Update with the correct asset path
+          fit: BoxFit.cover,
+          height: 250, // Adjust the size as necessary
+        ),
         elevation: 0,
       ),
-      // Define the drawer
       drawer: Drawer(
-        // Add a ListView in the drawer
         child: ListView(
-          // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
-          children: <Widget>[
-            // Add a drawer header
+          children: [
             const DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
               child: Text(
                 'Menu',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
+                style: TextStyle(color: Colors.white, fontSize: 24),
               ),
             ),
-            // Add drawer menu items
             ListTile(
               leading: const Icon(Icons.home),
               title: const Text('Home'),
               onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                Navigator.pop(context);
+                Navigator.pop(context); // Close the drawer
               },
             ),
             ListTile(
-              leading: const Icon(Icons.shopping_cart),
-              title: const Text('Shop'),
+              leading: const Icon(Icons.login),
+              title: const Text('Login'),
               onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                Navigator.pop(context);
+                Navigator.pop(context); // Close the drawer and navigate to login
               },
             ),
-            // Add more ListTile widgets for more menu items...
+            // Add more items here
           ],
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             const SizedBox(height: 200),
-            const Text('Type a product name or barcode', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24,)),
+            const Text(
+              'Type a product name or barcode',
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),
+            ),
             const SizedBox(height: 30),
-           TextField(
-  decoration: InputDecoration(
-    filled: true,
-    fillColor: Colors.white, // Set the fill color to white
-    hintText: 'Search',
-    hintStyle: TextStyle(color: Colors.grey),
-    prefixIcon: Icon(Icons.search, color: Colors.grey),
-    // Define the border, focusedBorder, and enabledBorder to customize the appearance
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(10.0), // Rounded corners with a radius of 10.0
-      borderSide: BorderSide.none, // No border
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(10.0), // Keep consistent radius with the border
-      borderSide: BorderSide(color: Colors.blue), // Define a border side when the TextField is focused
-    ),
-    enabledBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(30.0), // Keep consistent radius with the border
-      borderSide: BorderSide.none, // Usually no border when the TextField is enabled and not focused
-    ),
-  ),
-  style: const TextStyle(color: Colors.black), // Text color
-),
-
-const SizedBox(height: 30),
+            TextField(
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                hintText: 'Search',
+                hintStyle: const TextStyle(color: Colors.grey),
+                prefixIcon: const Icon(Icons.search, color: Colors.grey),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: BorderSide.none,
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: const BorderSide(color: Colors.blue),
+                ),
+              ),
+              style: const TextStyle(color: Colors.black),
+            ),
+            const SizedBox(height: 30),
             ElevatedButton(
-  onPressed: () {
-    // Your submit functionality here
-  },
-  
-  style: ElevatedButton.styleFrom(
-    backgroundColor: Color.fromARGB(255, 18, 62, 97), // Button background color
-    foregroundColor: Colors.white, // Button text color
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(30.0), // Rounded edges
-    ),
-     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15), // Button padding
-  ),
-  child: Text('Submit'),
-)
-
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, '/top_match');
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color.fromARGB(255, 18, 62, 97),
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+              ),
+              child: const Text('Submit'),
+            ),
           ],
         ),
       ),
