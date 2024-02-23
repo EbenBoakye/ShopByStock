@@ -32,7 +32,7 @@ class LoginPage extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const SizedBox(height: 80), // Provides spacing from the AppBar
+              const SizedBox(height: 0), // Provides spacing from the AppBar
               const TextField(
                 decoration: InputDecoration(
                   labelText: 'Username/Email:',
@@ -41,7 +41,7 @@ class LoginPage extends StatelessWidget {
                   border: OutlineInputBorder(),
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 10), // Spacing between input fields
               const TextField(
                 obscureText: true, // Hides the password
                 decoration: InputDecoration(
@@ -51,18 +51,21 @@ class LoginPage extends StatelessWidget {
                   border: OutlineInputBorder(),
                 ),
               ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white, // Button background color
-                  foregroundColor: Colors.blue, // Button text color
-                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+              const SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: () {
+                
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color.fromARGB(255, 18, 62, 97),
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
                 ),
-                onPressed: () {
-                  // Insert login logic
-                },
-                child: const Text('Submit'),
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
               ),
+              child: const Text('Submit'),
+            ),
               // ... Other widgets if needed
             ],
           ),
