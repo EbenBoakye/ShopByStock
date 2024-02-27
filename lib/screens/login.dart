@@ -53,7 +53,7 @@ class LoginPage extends StatelessWidget {
                   // Insert login logic here
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromARGB(255, 18, 62, 97),
+                  backgroundColor: const Color.fromARGB(255, 18, 62, 97),
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),
