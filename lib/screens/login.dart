@@ -64,7 +64,7 @@ class LoginPage extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  // Insert forgot password logic here
+                  Navigator.pushReplacementNamed(context,'/passwrd');//forgot password logic here
                 },
                 child: const Text(
                   'Forgot Password?',

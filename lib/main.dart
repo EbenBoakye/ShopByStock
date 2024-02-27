@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:shopby/screens/passwrd.dart';
 import 'package:shopby/screens/regpage.dart';
 import 'package:shopby/screens/landing_page.dart';
 import 'package:shopby/screens/login.dart';
 import 'package:shopby/screens/product_search.dart';
 import 'package:shopby/screens/top_match.dart';
-import 'pages: shopby/screens/passwrd.dart';
 
 void main() {
   
@@ -22,8 +22,8 @@ class Homepage extends StatelessWidget {
        //home: const RegistrationPage(),
       //home: const TopMatch(),
       //home: const ProductSearch(),
-      //home: const LoginPage(),
-      home: const ForgotPasswordPage(),
+      home: const LoginPage(),
+      //home: const ForgotPasswordPage(),
 
      routes: {
       
@@ -31,6 +31,7 @@ class Homepage extends StatelessWidget {
       '/top_match': (context) => const TopMatch(),
       '/regpage': (context) => const RegistrationPage(),
       '/login': (context) => const LoginPage(),
+      '/passwrd': (context) => const ForgotPasswordPage(),
       
      },
     );

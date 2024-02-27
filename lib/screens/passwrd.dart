@@ -9,25 +9,29 @@ class ForgotPasswordPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Forgot Password'),
+        title: const Text('Forgot password?', style: TextStyle(fontWeight: FontWeight.bold),),
         backgroundColor: Colors.blue,
       ),
+      backgroundColor: Colors.blue,
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
+           const SizedBox(height: 20),
             const Text(
-              'Enter your email address and we will send you a link to reset your password.',
+              'Enter the email address you signed up with and we will send you a link to reset your password.',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold), 
             ),
-            const SizedBox(height: 20),
-            TextField(
+            const SizedBox(height: 160),
+            TextField( 
+              
               controller: emailController,
               keyboardType: TextInputType.emailAddress,
               decoration: const InputDecoration(
-                labelText: 'Email Address',
+                filled: true, fillColor: Colors.white,
+                labelText: 'Email Address', labelStyle: TextStyle(color: Colors.black),
                 border: OutlineInputBorder(),
               ),
             ),
@@ -39,9 +43,9 @@ class ForgotPasswordPage extends StatelessWidget {
                 // TODO: Add your password reset logic here
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue, // Background color
+                 backgroundColor: const Color.fromARGB(255, 18, 62, 97), // Background color
               ),
-              child: const Text('Send Reset Link'),
+              child: const Text('Send Reset Link', style: TextStyle(color: Colors.white)),
             ),
           ],
         ),
