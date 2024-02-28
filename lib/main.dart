@@ -8,8 +8,9 @@ import 'package:shopby/screens/login.dart';
 import 'package:shopby/screens/product_search.dart';
 import 'package:shopby/screens/top_match.dart';
 
-void main() async {
+void main() async  {
   
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
 );
@@ -23,7 +24,7 @@ class Homepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-       home: const ShopBystock(),
+      home: const ShopBystock(),
        //home: const RegistrationPage(),
       //home: const TopMatch(),
       //home: const ProductSearch(),
