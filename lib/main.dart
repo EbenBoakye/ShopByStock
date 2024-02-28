@@ -1,4 +1,6 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:shopby/firebase_options.dart';
 import 'package:shopby/screens/passwrd.dart';
 import 'package:shopby/screens/regpage.dart';
 import 'package:shopby/screens/landing_page.dart';
@@ -6,8 +8,11 @@ import 'package:shopby/screens/login.dart';
 import 'package:shopby/screens/product_search.dart';
 import 'package:shopby/screens/top_match.dart';
 
-void main() {
+void main() async {
   
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+);
   runApp(const Homepage());
 }
 

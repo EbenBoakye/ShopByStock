@@ -28,7 +28,7 @@ class RegistrationPage extends StatelessWidget {
           icon: const Icon(Icons.menu),
           onPressed: () {
             // Handle drawer open here
-          },
+          },                                                                          
         ),
         title: Image.asset(
           'assets/images/shopby.png', // Make sure the path is correct and the image is added to your pubspec.yaml

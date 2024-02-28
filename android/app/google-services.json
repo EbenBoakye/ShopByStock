@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "535724110346",
+    "project_id": "shopbystock",
+    "storage_bucket": "shopbystock.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:535724110346:android:ccf59e96486ca087cc25f3",
+        "android_client_info": {
+          "package_name": "com.example.shopby"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsm1Ixb9Hz63z9glZeo60lbfHk25iaS70"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
