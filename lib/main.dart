@@ -8,7 +8,7 @@ import 'package:shopby/screens/login.dart';
 import 'package:shopby/screens/product_search.dart';
 import 'package:shopby/screens/top_match.dart';
 
-void main() async  {
+void main() async {
   
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(

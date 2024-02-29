@@ -1,19 +1,5 @@
 import 'package:flutter/material.dart';
 
-// class AdminSign extends StatelessWidget {
-//   const AdminSign({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       theme: ThemeData(
-//         primaryColor: Colors.blue,
-//       ),
-//       home: const RegistrationPage(),
-//     );
-//   }
-// }
-
 class RegistrationPage extends StatelessWidget {
   const RegistrationPage({super.key});
 
