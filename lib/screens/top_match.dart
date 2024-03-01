@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TopMatch extends StatelessWidget {
-  const TopMatch({Key? key}) : super(key: key);
+  const TopMatch({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -10,9 +10,9 @@ class TopMatch extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.blue,
         leading: IconButton(
-          icon: const Icon(Icons.menu),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
-            Scaffold.of(context).openDrawer();
+            Navigator.popAndPushNamed(context , '/main');
           },
         ),
         title: Image.asset(

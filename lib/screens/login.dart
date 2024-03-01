@@ -1,25 +1,46 @@
+ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
- @override
+  @override
   Widget build(BuildContext context) {
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
+
+    Future<void> _login() async {
+      try {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim(),
+        );
+        // If the login is successful, navigate to your home screen
+        // ignore: use_build_context_synchronously
+        Navigator.pushReplacementNamed(context, '/home');
+      } on FirebaseAuthException catch (e) {
+        // ignore: use_build_context_synchronously
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to login: ${e.message}')),
+        );
+      }
+    }
+
     return Scaffold(
       backgroundColor: Colors.blue,
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        elevation: 0, // Removes the shadow under the app bar
+        elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.menu), // The hamburger "menu" icon
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
-            // Handle drawer open here
+                Navigator.popAndPushNamed(context , '/main');  // Handle back here
           },
         ),
         title: Image.asset(
-          'assets/images/shopby.png', // Update with the correct asset path
+          'assets/images/shopby.png',
           fit: BoxFit.cover,
-          height: 250, // Adjust the size as necessary
+          height: 250,
         ),
       ),
       body: Center(
@@ -28,30 +49,43 @@ class LoginPage extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const SizedBox(height: 0), // Provides spacing from the AppBar
-              const TextField(
+              TextField(
+                controller: emailController,
                 decoration: InputDecoration(
                   labelText: 'Username/Email:',
                   filled: true,
                   fillColor: Colors.white,
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(
+                   borderRadius: BorderRadius.circular(10.0),
+                  borderSide: BorderSide.none,
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: const BorderSide(color: Colors.blue),
+                  ),
                 ),
               ),
-              const SizedBox(height: 10), // Spacing between input fields
-              const TextField(
-                obscureText: true, // Hides the password
-                decoration: InputDecoration(
+              const SizedBox(height: 10),
+              TextField(
+                controller: passwordController,
+                obscureText: true,
+                decoration:  InputDecoration(
                   labelText: 'Enter password:',
                   filled: true,
                   fillColor: Colors.white,
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  borderSide: BorderSide.none,
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: const BorderSide(color: Colors.blue),
+                  ),
                 ),
               ),
               const SizedBox(height: 30),
               ElevatedButton(
-                onPressed: () {
-                  // Insert login logic here
-                },
+                onPressed: _login,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(255, 18, 62, 97),
                   foregroundColor: Colors.white,
@@ -60,11 +94,12 @@ class LoginPage extends StatelessWidget {
                   ),
                   padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                 ),
-                child: const Text('Submit'),
+                child: const Text('Login'),
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.pushReplacementNamed(context,'/passwrd');//forgot password logic here
+                  // Navigate to the Forgot Password page
+                  Navigator.pushReplacementNamed(context, '/passwrd');
                 },
                 child: const Text(
                   'Forgot Password?',
@@ -74,7 +109,6 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
               ),
-              // ... Other widgets if needed
             ],
           ),
         ),

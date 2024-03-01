@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 
 class ProductSearch extends StatelessWidget {
-  const ProductSearch({Key? key}) : super(key: key);
+  const ProductSearch({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +13,9 @@ class ProductSearch extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.blue,
         leading: IconButton(
-          icon: const Icon(Icons.menu),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
-            Scaffold.of(context).openDrawer();
+            Navigator.popAndPushNamed(context , '/main');
           },
         ),
         title: Image.asset(
@@ -25,37 +25,7 @@ class ProductSearch extends StatelessWidget {
         ),
         elevation: 0,
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text(
-                'Menu',
-                style: TextStyle(color: Colors.white, fontSize: 24),
-              ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.home),
-              title: const Text('Home'),
-              onTap: () {
-                Navigator.pop(context); // Close the drawer
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.login),
-              title: const Text('Login'),
-              onTap: () {
-                Navigator.pop(context); // Close the drawer and navigate to login
-              },
-            ),
-            // Add more items here
-          ],
-        ),
-      ),
+     
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -79,7 +49,7 @@ class ProductSearch extends StatelessWidget {
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
-                  borderSide: const BorderSide(color: Colors.blue),
+                  borderSide: const BorderSide(color: Colors.white),
                 ),
               ),
               style: const TextStyle(color: Colors.black),

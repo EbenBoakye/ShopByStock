@@ -1,12 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:shopby/firebase_options.dart';
-import 'package:shopby/screens/passwrd.dart';
-import 'package:shopby/screens/regpage.dart';
-import 'package:shopby/screens/landing_page.dart';
-import 'package:shopby/screens/login.dart';
-import 'package:shopby/screens/product_search.dart';
-import 'package:shopby/screens/top_match.dart';
+import 'package:shopbystock/firebase_options.dart';
+import 'package:shopbystock/screens/home.dart';
+import 'package:shopbystock/screens/passwrd.dart';
+import 'package:shopbystock/screens/regpage.dart';
+import 'package:shopbystock/screens/landing_page.dart';
+import 'package:shopbystock/screens/login.dart';
+import 'package:shopbystock/screens/product_search.dart';
+import 'package:shopbystock/screens/top_match.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() async {
   
@@ -24,21 +27,22 @@ class Homepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const ShopBystock(),
+      //home: const ShopBystock(),
        //home: const RegistrationPage(),
-      //home: const TopMatch(),
+      home: const TopMatch(),
       //home: const ProductSearch(),
       //home: const LoginPage(),
       //home: const ForgotPasswordPage(),
-
+      //home: const AddProduct(),
      routes: {
       
       '/product_search': (context) => const ProductSearch(),
       '/top_match': (context) => const TopMatch(),
       '/regpage': (context) => const RegistrationPage(),
       '/login': (context) => const LoginPage(),
-      '/passwrd': (context) => const ForgotPasswordPage(),
-      
+      '/passwrd': (context) => ForgotPasswordPage(),
+      '/main': (context) => const ShopBystock(),
+      '/home': (context) => const AddProduct(),
      },
     );
   }

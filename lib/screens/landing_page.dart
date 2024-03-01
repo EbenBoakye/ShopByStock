@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shopby/screens/product_search.dart';
+import 'package:shopbystock/screens/product_search.dart';
 
 class ShopBystock extends StatefulWidget {
   const ShopBystock({super.key});
