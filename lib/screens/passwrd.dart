@@ -34,12 +34,13 @@ class ForgotPasswordPage extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
-            Navigator.popAndPushNamed(context, '/login'); // Navigate back to the previous screen
+            Navigator.pushNamed(context, '/login'); // Navigate back to the previous screen
           },
         ),
       ),
       backgroundColor: Colors.blue,
-      body: Padding(
+      body: Center(
+        child: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -48,19 +49,26 @@ class ForgotPasswordPage extends StatelessWidget {
             const Text(
               'Enter the email address you signed up with and we\'ll send you a link to reset your password.',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold),
             ),
-            Image.asset('/Users/student/dev/projects/shopby/assets/images/forgot_password.png', height: 140, width: 200), // Make sure the path is correct
-            const SizedBox(height: 40),
+            Image.asset('assets/images/forgot_password.png', height: 60, width: 200), // Make sure the path is correct
+            const SizedBox(height: 10),
             TextField(
               controller: emailController,
               keyboardType: TextInputType.emailAddress,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.white,
                 labelText: 'Email Address',
-                labelStyle: TextStyle(color: Colors.black),
-                border: OutlineInputBorder(),
+                labelStyle: const TextStyle(color: Colors.black),
+               border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: BorderSide.none,
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: const BorderSide(color: Colors.white),
+                ),
               ),
             ),
             const SizedBox(height: 20),
@@ -82,6 +90,7 @@ class ForgotPasswordPage extends StatelessWidget {
             ),
           ],
         ),
+      ),
       ),
     );
   }

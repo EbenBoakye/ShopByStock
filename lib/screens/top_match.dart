@@ -1,7 +1,19 @@
 import 'package:flutter/material.dart';
 
+class Product {
+  final String name;
+  final String description;
+
+  Product(this.name, this.description);
+}
+
 class TopMatch extends StatelessWidget {
-  const TopMatch({super.key});
+  final List<Product> products;
+
+  const TopMatch({
+    super.key,
+    required this.products, required productName,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -11,22 +23,14 @@ class TopMatch extends StatelessWidget {
         backgroundColor: Colors.blue,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.popAndPushNamed(context , '/main');
-          },
+          onPressed: () => Navigator.pop(context),
         ),
         title: Image.asset(
-          'assets/images/shopby.png', // Make sure the path is correct and the image is added to your pubspec.yaml
+          'assets/images/shopby.png',
           fit: BoxFit.cover,
-          height: 250, // Set an appropriate height for your AppBar title image
+          height: 250, // Adjusted the height for consistency
         ),
         elevation: 0,
-      ),
-      drawer: Drawer(
-        // Populate your Drawer here
-        child: ListView(
-          // Add Drawer items
-        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -37,27 +41,21 @@ class TopMatch extends StatelessWidget {
               const SizedBox(height: 40),
               const Text(
                 'Top match',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
               ),
-            const Center(
+              Center(
                 child: SizedBox(
-                  width: 340, // Set the width of the card
-                  height: 150, // Set the height of the card
+                  width: 340,
+                  height: 150,
                   child: Card(
-                    // Customize your card appearance
                     child: Padding(
-                      padding:  EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(16.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          // Your card content goes here
-                          Text('Product Name', style: TextStyle(fontSize: 20)),
-                          SizedBox(height: 8),
-                          Text('Product Description'),
+                          Text(products.first.name, style: const TextStyle(fontSize: 20)),
+                          const SizedBox(height: 8),
+                          Text(products.first.description),
                         ],
                       ),
                     ),
@@ -67,23 +65,22 @@ class TopMatch extends StatelessWidget {
               const SizedBox(height: 90),
               const Text(
                 'Similar products',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
               ),
               ListView.builder(
-                // This builds a list of similar products cards
                 shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(), // to disable ListView's scrolling
-                itemCount: 4, // The count of similar products
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: products.length - 1, // Subtract 1 since the top match is not included in this list
                 itemBuilder: (context, index) {
-                  return const Card(
+                  // Adjust index to skip the first product
+                  final product = products[index + 1];
+                  return Card(
                     child: ListTile(
-                      title:  Text('Name'),
-                      subtitle: Text('Product description'),
-                      // Add your content
+                      title: Text(product.name),
+                      subtitle: Text(product.description),
+                      onTap: () {
+                        // Implement navigation to product detail page if needed
+                      },
                     ),
                   );
                 },

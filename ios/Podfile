@@ -23,7 +23,7 @@ ENV['COCOAPODS_DISABLE_STATS'] = 'true'
  require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelper'), flutter_root)
 
  flutter_ios_podfile_setup
-
+ platform :ios, '12.0'
  target 'Runner' do
    use_frameworks!
    use_modular_headers!
@@ -31,7 +31,7 @@ ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
 
    flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
- end
+  end
 
  post_install do |installer|
    installer.pods_project.targets.each do |target|
