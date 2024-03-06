@@ -60,7 +60,7 @@ class RegistrationPage extends StatelessWidget {
              Navigator.popAndPushNamed(context , '/main'); // Handle back here
           },
         ),
-        title: const Text('Registration', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: const Text('Registration', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),

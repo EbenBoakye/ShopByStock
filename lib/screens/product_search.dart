@@ -1,19 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
-import 'package:shopbystock/screens/top_match.dart';
-
-// Define your Product model (if you plan to pass complex data)
-class Product {
-  final String name;
-  final String description;
-
-  Product({required this.name, required this.description});
-}
+import 'top_match.dart'; // Make sure to import the TopMatch page correctly
+import 'product_model.dart'; // Make sure to import the Product class correctly
 
 class ProductSearch extends StatefulWidget {
-  const ProductSearch({super.key});
+  const ProductSearch({Key? key}) : super(key: key);
 
   @override
   _ProductSearchState createState() => _ProductSearchState();
@@ -22,44 +14,43 @@ class ProductSearch extends StatefulWidget {
 class _ProductSearchState extends State<ProductSearch> {
   final TextEditingController _searchController = TextEditingController();
   bool _isLoading = false;
-  String? _searchResult;
 
-  Future<void> performSearch(String query) async {
+  Future<void> performSearch(String input) async {
     setState(() {
       _isLoading = true;
     });
 
+    // Define query parameters based on input type
+    Map<String, String> queryParams = {
+      input.contains(RegExp(r'^\d+$')) ? 'barcode' : 'title': input,
+      'formatted': 'y',
+      'key': 'fi4jjhtjuesh99e8bynyct2gkxyffd', // Use your actual API key
+    };
+
     try {
-      final response = await http.get(Uri.parse('https://api.barcodelookup.com/v3/products?barcode=$query&formatted=y&key=YOUR_API_KEY'));
+      final uri = Uri.https('api.barcodelookup.com', '/v3/products', queryParams);
+      final response = await http.get(uri);
 
       if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        // Assuming the API returns a list of items
-        // Here, for simplicity, we're just grabbing the product name
-        final productName = data['products'][0]['product_name'];
+        final data = jsonDecode(response.body);
+        List<Product> products = List<Product>.from((data['products'] as List).map((productData) => Product.fromJson(productData)));
 
-        // Navigate to the TopMatch page with the search result
-        Navigator.push(
-          // ignore: use_build_context_synchronously
-          context,
-          MaterialPageRoute(
-            builder: (context) => TopMatch(productName: productName, products: const [],), // Assuming TopMatch accepts a productName parameter
-          ),
-        );
+        // Navigate to TopMatch with the list of Product objects
+        Navigator.push(context, MaterialPageRoute(builder: (context) => TopMatch(products: products, productName: null,)));
       } else {
-        setState(() {
-          _searchResult = 'Product not found.';
-        });
+        _showError('Product not found.'); // Use the _showError method for user feedback
       }
     } catch (e) {
-      setState(() {
-        _searchResult = 'An error occurred.';
-      });
+      _showError('An error occurred.'); // Use the _showError method for error feedback
     } finally {
       setState(() {
         _isLoading = false;
       });
     }
+  }
+
+  void _showError(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
   }
 
   @override
@@ -70,27 +61,19 @@ class _ProductSearchState extends State<ProductSearch> {
         backgroundColor: Colors.blue,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.pushNamed(context, '/main'); // Just pop the current screen
-          },
+          onPressed: () => Navigator.pushNamed(context, '/main'), // Handle back navigation
         ),
-        title: Image.asset(
-          'assets/images/shopby.png',
-          fit: BoxFit.cover,
-          height: 250, // Adjust the size as necessary
-        ),
+        title: Image.asset('assets/images/shopby.png', fit: BoxFit.cover, height: 250),
         elevation: 0,
       ),
+      
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
               const SizedBox(height: 90),
-              const Text(
-                'Type a product name or barcode',
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),
-              ),
+              const Text('Type a product name or barcode', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24)),
               const SizedBox(height: 30),
               TextField(
                 controller: _searchController,
@@ -100,14 +83,8 @@ class _ProductSearchState extends State<ProductSearch> {
                   hintText: 'Search',
                   hintStyle: const TextStyle(color: Colors.grey),
                   prefixIcon: const Icon(Icons.search, color: Colors.grey),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide.none,
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: const BorderSide(color: Colors.white),
-                  ),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0), borderSide: BorderSide.none),
+                  focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0), borderSide: const BorderSide(color: Colors.white)),
                 ),
                 style: const TextStyle(color: Colors.black),
               ),
@@ -121,16 +98,12 @@ class _ProductSearchState extends State<ProductSearch> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(255, 18, 62, 97),
                   foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
                   padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                 ),
                 child: const Text('Submit'),
               ),
-              if (_isLoading)
-                const CircularProgressIndicator(),
-              if (_searchResult != null) Text(_searchResult!, style: const TextStyle(color: Colors.white)),
+              if (_isLoading) const CircularProgressIndicator(),
             ],
           ),
         ),

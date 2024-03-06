@@ -34,7 +34,7 @@ class LoginPage extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
-                Navigator.popAndPushNamed(context , '/main');  // Handle back here
+                Navigator.popAndPushNamed(context ,'/main');  // Handle back here
           },
         ),
         title: Image.asset(

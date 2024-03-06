@@ -1,19 +1,11 @@
 import 'package:flutter/material.dart';
-
-class Product {
-  final String name;
-  final String description;
-
-  Product(this.name, this.description);
-}
+import 'package:flutter/widgets.dart';
+import 'product_model.dart'; // Import your Product model correctly
 
 class TopMatch extends StatelessWidget {
   final List<Product> products;
 
-  const TopMatch({
-    super.key,
-    required this.products, required productName,
-  });
+  const TopMatch({super.key, required this.products, required productName});
 
   @override
   Widget build(BuildContext context) {
@@ -23,71 +15,36 @@ class TopMatch extends StatelessWidget {
         backgroundColor: Colors.blue,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Navigator.pushNamed(context, '/product_search'), // Handle back navigation
         ),
-        title: Image.asset(
-          'assets/images/shopby.png',
-          fit: BoxFit.cover,
-          height: 250, // Adjusted the height for consistency
-        ),
+        title: const Text('Search Results',style: TextStyle(fontWeight: FontWeight.bold,) ),// Updated for clarity
         elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 40),
-              const Text(
-                'Top match',
-                style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              Center(
-                child: SizedBox(
-                  width: 340,
-                  height: 150,
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(products.first.name, style: const TextStyle(fontSize: 20)),
-                          const SizedBox(height: 8),
-                          Text(products.first.description),
-                        ],
-                      ),
-                    ),
-                  ),
+          child: products.isEmpty
+              ? const Center(child: Text('No products found', style: TextStyle(color: Colors.white)))
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: products.map((product) => _productCard(product)).toList(),
                 ),
-              ),
-              const SizedBox(height: 90),
-              const Text(
-                'Similar products',
-                style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: products.length - 1, // Subtract 1 since the top match is not included in this list
-                itemBuilder: (context, index) {
-                  // Adjust index to skip the first product
-                  final product = products[index + 1];
-                  return Card(
-                    child: ListTile(
-                      title: Text(product.name),
-                      subtitle: Text(product.description),
-                      onTap: () {
-                        // Implement navigation to product detail page if needed
-                      },
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
         ),
+      ),
+    );
+  }
+
+  Widget _productCard(Product product) {
+    return Card(
+      child: Column(
+        children: [
+          if (product.imageUrl.isNotEmpty)
+            Image.network(product.imageUrl, fit: BoxFit.cover),
+          ListTile(
+            title: Text(product.title),
+            subtitle: Text('Barcode Formats: ${product.barcodeFormats}\nPrice: ${product.price}\n${product.description}'),
+          ),
+        ],
       ),
     );
   }
