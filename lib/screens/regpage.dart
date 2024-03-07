@@ -9,24 +9,27 @@ class RegistrationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Controllers to handle text input
-    final TextEditingController _postcodeController = TextEditingController();
-    final TextEditingController _emailController = TextEditingController();
-    final TextEditingController _passwordController = TextEditingController();
-    final TextEditingController _confirmPasswordController = TextEditingController();
-
+    final TextEditingController postcodeController = TextEditingController();
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
+    final TextEditingController confirmPasswordController = TextEditingController();
+    final TextEditingController company_noController = TextEditingController();
+    final TextEditingController fullnameController = TextEditingController();
     // Function to handle user registration
-    Future<void> _registerUser() async {
-      if (_passwordController.text == _confirmPasswordController.text) {
+    Future<void> registerUser() async {
+      if (passwordController.text == confirmPasswordController.text) {
         try {
           // Create the user with email and password
           UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-            email: _emailController.text.trim(),
-            password: _passwordController.text.trim(),
+            email: emailController.text.trim(),
+            password: passwordController.text.trim(),
           );
 
           // Add additional user details like postcode to Firestore
           await FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid).set({
-            'postcode': _postcodeController.text.trim(),
+            'postcode': postcodeController.text.trim(),
+            'company number':company_noController.text.trim(),
+            'fullname':fullnameController.text.trim(),
             // Add other user details here if needed
           });
 
@@ -70,7 +73,41 @@ class RegistrationPage extends StatelessWidget {
             children: [
               const SizedBox(height: 10),
               TextField(
-                controller: _postcodeController,
+                controller: fullnameController,
+                decoration: InputDecoration(
+                  labelText: 'Full name:',
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  borderSide: BorderSide.none,
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: const BorderSide(color: Colors.blue),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              TextField(
+                controller: company_noController,
+                decoration: InputDecoration(
+                  labelText: 'Company number:',
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  borderSide: BorderSide.none,
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: const BorderSide(color: Colors.blue),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              TextField(
+                controller: postcodeController,
                 decoration: InputDecoration(
                   labelText: 'Post Code:',
                   filled: true,
@@ -87,7 +124,7 @@ class RegistrationPage extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               TextField(
-                controller: _emailController,
+                controller: emailController,
                 decoration: InputDecoration(
                   labelText: 'Email:',
                   filled: true,
@@ -105,7 +142,7 @@ class RegistrationPage extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               TextField(
-                controller: _passwordController,
+                controller: passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'Enter password:',
@@ -123,7 +160,7 @@ class RegistrationPage extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               TextField(
-                controller: _confirmPasswordController,
+                controller: confirmPasswordController,
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'Confirm password:',
@@ -149,8 +186,8 @@ class RegistrationPage extends StatelessWidget {
                   ),
                   padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                 ),
-                onPressed: _registerUser,
-                child: const Text('Submit'),
+                onPressed: registerUser,
+                child: const Text('Sign me Up'),
               ),
             ],
           ),
