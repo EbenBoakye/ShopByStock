@@ -39,6 +39,7 @@ dependencies:
   firebase_auth: ^4.17.6
   cloud_firestore: ^4.15.6
   http: ^1.2.0
+  geocoding: ^2.2.0
   # mobile_scanner: ^4.0.1
   
 

@@ -8,8 +8,8 @@ import 'package:shopbystock/screens/landing_page.dart';
 import 'package:shopbystock/screens/login.dart';
 import 'package:shopbystock/screens/product_search.dart';
 import 'package:shopbystock/screens/top_match.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() async {
   

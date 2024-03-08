@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:geocoding/geocoding.dart';
 
 class RegistrationPage extends StatelessWidget {
   const RegistrationPage({super.key});
@@ -13,44 +13,53 @@ class RegistrationPage extends StatelessWidget {
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
     final TextEditingController confirmPasswordController = TextEditingController();
-    final TextEditingController company_noController = TextEditingController();
+    final TextEditingController companyNocontroller = TextEditingController();
     final TextEditingController fullnameController = TextEditingController();
     // Function to handle user registration
-    Future<void> registerUser() async {
-      if (passwordController.text == confirmPasswordController.text) {
-        try {
-          // Create the user with email and password
-          UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-            email: emailController.text.trim(),
-            password: passwordController.text.trim(),
-          );
+    
 
-          // Add additional user details like postcode to Firestore
-          await FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid).set({
-            'postcode': postcodeController.text.trim(),
-            'company number':company_noController.text.trim(),
-            'fullname':fullnameController.text.trim(),
-            // Add other user details here if needed
-          });
+Future<void> registerUser() async {
+  if (passwordController.text == confirmPasswordController.text) {
+    try {
+      // Use Geocoding to get latitude and longitude from postcode
+      List<Location> locations = await locationFromAddress(postcodeController.text.trim());
+      double latitude = locations.first.latitude;
+      double longitude = locations.first.longitude;
+      
+      // Proceed to create the user with email and password
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
 
-          // Show a success message
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Registration successful')),
-          );
+      // Store user details including coordinates in Firestore
+      await FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid).set({
+        'fullname': fullnameController.text.trim(),
+        'company number': companyNocontroller.text.trim(),
+        'address': postcodeController.text.trim(),
+        'latitude': latitude,
+        'longitude': longitude,
+      });
 
-          // Navigate to another screen if necessary
-          // Navigator.pushReplacementNamed(context, '/home');
-        } on FirebaseAuthException catch (e) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Failed to register: ${e.message}')),
-          );
-        }
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Passwords do not match')),
-        );
-      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Registration successful')),
+      );
+    } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to register: ${e.message}')),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to get location: $e')),
+      );
     }
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Passwords do not match')),
+    );
+  }
+}
+
 
     return Scaffold(
       backgroundColor: Colors.blue,
@@ -90,7 +99,7 @@ class RegistrationPage extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               TextField(
-                controller: company_noController,
+                controller: companyNocontroller,
                 decoration: InputDecoration(
                   labelText: 'Company number:',
                   filled: true,
@@ -109,7 +118,7 @@ class RegistrationPage extends StatelessWidget {
               TextField(
                 controller: postcodeController,
                 decoration: InputDecoration(
-                  labelText: 'Post Code:',
+                  labelText: 'Full address:',
                   filled: true,
                   fillColor: Colors.white,
                   border: OutlineInputBorder(
