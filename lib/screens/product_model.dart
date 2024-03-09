@@ -1,13 +1,13 @@
 class Product {
   final String title;
-  final String barcodeFormats;
+  final String barcode;
   final String price;
   final String description;
   final String imageUrl;
 
   Product({
     required this.title,
-    required this.barcodeFormats,
+    required this.barcode,
     required this.price,
     required this.description,
     required this.imageUrl,
@@ -27,7 +27,7 @@ class Product {
 
     return Product(
       title: json['title'],
-      barcodeFormats: json['barcode_formats'],
+      barcode: json['barcode_number'],
       price: price,
       description: json['description'],
       imageUrl: imageUrl,

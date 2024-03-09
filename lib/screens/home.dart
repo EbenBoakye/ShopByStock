@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'product_details.dart'; // Ensure this import points to your AddProductDetails widget file
 
 class AddProduct extends StatelessWidget {
   const AddProduct({super.key});
+
+  Future<void> scanBarcode(BuildContext context) async {
+    String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+      "#ff6666", "Cancel", true, ScanMode.BARCODE);
+
+    if (barcodeScanRes != '-1') {
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => AddProductDetails(scannedBarcode: barcodeScanRes),
+      ));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,32 +27,20 @@ class AddProduct extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.logout, color: Colors.white),
           onPressed: () async {
-            // Sign out logic
             await FirebaseAuth.instance.signOut();
-            // Navigate to the login page after signing out
-            Navigator.of(context).pushReplacementNamed('/login');
+            Navigator.of(context).pushNamed('/login');
           },
         ),
-        title: Image.asset(
-          'assets/images/shopby.png', // Make sure this path is correct
-          fit: BoxFit.cover,
-          height: 250, // Adjust the size as necessary
-        ),
+        title: const Text('Add Product', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
       ),
       body: Center(
         child: ElevatedButton.icon(
-          onPressed: () {
-            // Implement the add product functionality
-          },
-          icon: const Icon(Icons.add, color: Colors.blue),
-          label: const Text(
-            'add a product',
-            style: TextStyle(color: Colors.blue),
-          ),
+          onPressed: () => scanBarcode(context),
+          icon: const Icon(Icons.camera_alt, color: Colors.white),
+          label: const Text('Scan Barcode', style: TextStyle(color: Colors.white)),
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.white, // Button color
-            foregroundColor: Colors.blue, // Text color
-            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+            backgroundColor: const Color.fromARGB(255, 18, 62, 97), // Background color
+            foregroundColor: Colors.white, // Icon and Text color
           ),
         ),
       ),

@@ -8,6 +8,7 @@ import 'package:shopbystock/screens/landing_page.dart';
 import 'package:shopbystock/screens/login.dart';
 import 'package:shopbystock/screens/product_search.dart';
 import 'package:shopbystock/screens/top_match.dart';
+import 'package:shopbystock/screens/product_details.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
 //import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -43,6 +44,7 @@ class Homepage extends StatelessWidget {
       '/passwrd': (context) => ForgotPasswordPage(),
       '/main': (context) => const ShopBystock(),
       '/home': (context) => const AddProduct(),
+      '/product_details': (context) => const AddProductDetails(scannedBarcode: '',),
      },
     );
   }

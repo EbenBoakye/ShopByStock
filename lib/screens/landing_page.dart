@@ -24,7 +24,7 @@ class _ShopBystockState extends State<ShopBystock> {
                 child: ElevatedButton(
                   onPressed: () {
                     // Navigate to the ProductSearch page
-                    Navigator.pushReplacementNamed(context, '/product_search');
+                    Navigator.pushNamed(context, '/product_search');
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.blue), 
@@ -46,7 +46,7 @@ class _ShopBystockState extends State<ShopBystock> {
               Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/regpage');// Handle Admin sign up navigation
+                    Navigator.pushNamed(context, '/regpage');// Handle Admin sign up navigation
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.blue),
@@ -83,27 +83,6 @@ class _ShopBystockState extends State<ShopBystock> {
                 ),
               ),
             ),
-
-              // const SizedBox(height: 20),
-              // // Center(
-              // //   child: ElevatedButton(
-              // //     onPressed: () {
-              // //       Navigator.pushReplacementNamed(context, '/login');// Handle Admin log-in navigation
-              // //     },
-              // //     style: ButtonStyle(
-              // //       backgroundColor: MaterialStateProperty.all(Colors.blue),
-              // //     ),
-              // //     child: const Text(
-              // //       'Login here',
-              // //       style: TextStyle(
-              // //         color: Colors.white,
-              // //         fontWeight: FontWeight.bold,
-              // //         fontSize: 20,
-              // //       ),
-              // //     ),
-              // //   ),
-              // // ),
-              // const SizedBox(height: 15),
             ],
           ),
         ),

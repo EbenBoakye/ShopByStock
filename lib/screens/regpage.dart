@@ -62,14 +62,14 @@ Future<void> registerUser() async {
 
 
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: const Color.fromARGB(255, 33, 149, 243),
       appBar: AppBar(
         backgroundColor: Colors.blue,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
-             Navigator.popAndPushNamed(context , '/main'); // Handle back here
+             Navigator.pushNamed(context , '/main'); // Handle back here
           },
         ),
         title: const Text('Registration', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),

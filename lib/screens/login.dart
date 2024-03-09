@@ -9,7 +9,7 @@ class LoginPage extends StatelessWidget {
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
 
-    Future<void> _login() async {
+    Future<void> login() async {
       try {
         await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailController.text.trim(),
@@ -17,7 +17,7 @@ class LoginPage extends StatelessWidget {
         );
         // If the login is successful, navigate to your home screen
         // ignore: use_build_context_synchronously
-        Navigator.pushReplacementNamed(context, '/home');
+        Navigator.pushNamed(context, '/home');
       } on FirebaseAuthException catch (e) {
         // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
@@ -34,7 +34,7 @@ class LoginPage extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
-                Navigator.popAndPushNamed(context ,'/main');  // Handle back here
+                Navigator.pushNamed(context ,'/main');  // Handle back here
           },
         ),
         title: Image.asset(
@@ -85,7 +85,7 @@ class LoginPage extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               ElevatedButton(
-                onPressed: _login,
+                onPressed: login,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(255, 18, 62, 97),
                   foregroundColor: Colors.white,
@@ -99,7 +99,7 @@ class LoginPage extends StatelessWidget {
               TextButton(
                 onPressed: () {
                   // Navigate to the Forgot Password page
-                  Navigator.pushReplacementNamed(context, '/passwrd');
+                  Navigator.pushNamed(context, '/passwrd');
                 },
                 child: const Text(
                   'Forgot Password?',
