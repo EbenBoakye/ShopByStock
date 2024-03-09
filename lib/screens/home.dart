@@ -1,47 +1,73 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'product_details.dart'; // Ensure this import points to your AddProductDetails widget file
 
-class AddProduct extends StatelessWidget {
-  const AddProduct({super.key});
+class AddProductDetails extends StatefulWidget {
+  final String scannedBarcode;
 
-  Future<void> scanBarcode(BuildContext context) async {
-    String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-      "#ff6666", "Cancel", true, ScanMode.BARCODE);
+  const AddProductDetails({super.key, required this.scannedBarcode});
 
-    if (barcodeScanRes != '-1') {
-      Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => AddProductDetails(scannedBarcode: barcodeScanRes),
-      ));
+  @override
+  State<AddProductDetails> createState() => _AddProductDetailsState();
+}
+
+class _AddProductDetailsState extends State<AddProductDetails> {
+  final _productNameController = TextEditingController();
+  final _productQuantityController = TextEditingController();
+
+  Future<void> _addProduct() async {
+    final productName = _productNameController.text;
+    final productQuantity = int.tryParse(_productQuantityController.text) ?? 0; // Default to 0 if parsing fails
+
+    if (productName.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter a product name')));
+      return;
+    }
+
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        await FirebaseFirestore.instance.collection('products').add({
+          'userId': user.uid, // Store the user ID for reference
+          'barcode': widget.scannedBarcode, // The scanned barcode
+          'name': productName, // Product name entered by the user
+          'quantity': productQuantity, // Quantity of the product
+        });
+
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Product added successfully with quantity: $productQuantity')));
+        Navigator.of(context).pop();
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error adding product: $e')));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
       appBar: AppBar(
+        title: const Text('Product Details', ),
         backgroundColor: Colors.blue,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.logout, color: Colors.white),
-          onPressed: () async {
-            await FirebaseAuth.instance.signOut();
-            Navigator.of(context).pushNamed('/login');
-          },
-        ),
-        title: const Text('Add Product', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
       ),
-      body: Center(
-        child: ElevatedButton.icon(
-          onPressed: () => scanBarcode(context),
-          icon: const Icon(Icons.camera_alt, color: Colors.white),
-          label: const Text('Scan Barcode', style: TextStyle(color: Colors.white)),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color.fromARGB(255, 18, 62, 97), // Background color
-            foregroundColor: Colors.white, // Icon and Text color
-          ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextField(
+              controller: _productNameController,
+              decoration: const InputDecoration(labelText: 'Product Name'),
+            ),
+            TextField(
+              controller: _productQuantityController,
+              decoration: const InputDecoration(labelText: 'Quantity'),
+              keyboardType: TextInputType.number, // Ensures numeric input
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: _addProduct,
+              child: const Text('Add Product'),
+            ),
+          ],
         ),
       ),
     );
