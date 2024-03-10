@@ -51,7 +51,7 @@ class TopMatch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: const Color.fromARGB(205, 33, 149, 243),
       appBar: AppBar(
         backgroundColor: Colors.blue,
         leading: IconButton(

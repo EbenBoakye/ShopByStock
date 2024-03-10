@@ -12,71 +12,95 @@ class AddProductDetails extends StatefulWidget {
 }
 
 class _AddProductDetailsState extends State<AddProductDetails> {
-  final _formKey = GlobalKey<FormState>();
-  String productName = '';
+  final _productNameController = TextEditingController();
+  final _productQuantityController = TextEditingController();
+
+  Future<void> _addProduct() async {
+    final productName = _productNameController.text;
+    final productQuantity = int.tryParse(_productQuantityController.text) ?? 0;
+
+    if (productName.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter a product name')));
+      return;
+    }
+
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        await FirebaseFirestore.instance.collection('shop_products').add({
+          'userId': user.uid,
+          'barcode': widget.scannedBarcode,
+          'name': productName,
+          'quantity': productQuantity,
+        });
+
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Product added successfully with quantity: $productQuantity')));
+        Navigator.of(context).pop();
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error adding product: $e')));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    Colors.blue;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Product Details', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),),
+        title: const Text('Product Details', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
         backgroundColor: Colors.blue,
       ),
-      backgroundColor: Colors.blue,
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Product Name'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter the product name';
-                  }
-                  return null;
-                },
-                onSaved: (value) => productName = value!,
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () => _submitProduct(context),
-                child: const Text('Add Product', style: TextStyle(color: Colors.white),)
-              ),
-            ],
+      backgroundColor: const Color.fromARGB(205, 33, 149, 243),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center, // Center the content vertically
+              children: [
+                TextField(
+                  controller: _productNameController,
+                  decoration: InputDecoration(
+                    labelText: 'Product Name',
+                    labelStyle: TextStyle(color: Colors.blue.shade900),
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0), // Make edges rounder
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                TextField(
+                  controller: _productQuantityController,
+                  decoration: InputDecoration(
+                    labelText: 'Quantity',
+                    labelStyle: TextStyle(color: Colors.blue.shade900),
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0), // Make edges rounder
+                    ),
+                  ),
+                  keyboardType: TextInputType.number,
+                ),
+                const SizedBox(height: 30),
+                ElevatedButton(
+                  onPressed: _addProduct,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 18, 62, 97), // Button background color
+                    foregroundColor: Colors.white, // Button text color
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                  ),
+                  child: const Text('Add Product'),
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
-  }
-
-  Future<void> _submitProduct(BuildContext context) async {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-
-      try {
-        final user = FirebaseAuth.instance.currentUser;
-        if (user != null) {
-          await FirebaseFirestore.instance.collection('products').add({
-            'userId': user.uid, // Store the user ID for reference
-            'barcode': widget.scannedBarcode, // The scanned barcode
-            'name': productName, // Product name entered by the user
-          });
-
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Product added successfully')),
-          );
-
-          Navigator.of(context).pop(); // Optionally navigate back to the previous screen
-        }
-      } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to add product: $e')),
-        );
-      }
-    }
   }
 }

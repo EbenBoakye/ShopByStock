@@ -27,7 +27,7 @@ class LoginPage extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: const Color.fromARGB(205, 33, 149, 243),
       appBar: AppBar(
         backgroundColor: Colors.blue,
         elevation: 0,
@@ -52,16 +52,16 @@ class LoginPage extends StatelessWidget {
               TextField(
                 controller: emailController,
                 decoration: InputDecoration(
-                  labelText: 'Username/Email:',
+                  labelText: 'Enter Email:',
                   filled: true,
                   fillColor: Colors.white,
                   border: OutlineInputBorder(
-                   borderRadius: BorderRadius.circular(10.0),
+                   borderRadius: BorderRadius.circular(30.0),
                   borderSide: BorderSide.none,
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  borderSide: const BorderSide(color: Colors.blue),
+                  borderRadius: BorderRadius.circular(30.0),
+                  borderSide: const BorderSide(color: Color.fromARGB(255, 3, 25, 41)),
                   ),
                 ),
               ),
@@ -74,12 +74,12 @@ class LoginPage extends StatelessWidget {
                   filled: true,
                   fillColor: Colors.white,
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.circular(30.0),
                   borderSide: BorderSide.none,
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  borderSide: const BorderSide(color: Colors.blue),
+                  borderRadius: BorderRadius.circular(30.0),
+                  borderSide: const BorderSide(color: Color.fromARGB(255, 3, 25, 41)),
                   ),
                 ),
               ),

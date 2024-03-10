@@ -38,7 +38,7 @@ class ForgotPasswordPage extends StatelessWidget {
           },
         ),
       ),
-      backgroundColor: Colors.blue,
+      backgroundColor: const Color.fromARGB(205, 33, 149, 243),
       body: Center(
         child: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),

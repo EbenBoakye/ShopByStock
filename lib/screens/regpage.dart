@@ -62,9 +62,9 @@ Future<void> registerUser() async {
 
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 33, 149, 243),
+      backgroundColor: const Color.fromARGB(205, 33, 149, 243),
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color.fromARGB(205, 33, 149, 243),
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
@@ -88,12 +88,12 @@ Future<void> registerUser() async {
                   filled: true,
                   fillColor: Colors.white,
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.circular(30.0),
                   borderSide: BorderSide.none,
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  borderSide: const BorderSide(color: Colors.blue),
+                  borderRadius: BorderRadius.circular(30.0),
+                  borderSide: const BorderSide(color: Color.fromARGB(255, 1, 32, 57)),
                   ),
                 ),
               ),
@@ -105,12 +105,12 @@ Future<void> registerUser() async {
                   filled: true,
                   fillColor: Colors.white,
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.circular(30.0),
                   borderSide: BorderSide.none,
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  borderSide: const BorderSide(color: Colors.blue),
+                  borderRadius: BorderRadius.circular(30.0),
+                  borderSide: const BorderSide(color: Color.fromARGB(255, 1, 32, 57)),
                   ),
                 ),
               ),
@@ -122,15 +122,16 @@ Future<void> registerUser() async {
                   filled: true,
                   fillColor: Colors.white,
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.circular(30.0),
                   borderSide: BorderSide.none,
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  borderSide:  const BorderSide(color: Colors.blue),
+                  borderRadius: BorderRadius.circular(30.0),
+                  borderSide:  const BorderSide(color: Color.fromARGB(255, 1, 32, 57)),
                   ),
                 ),
               ),
+              
               const SizedBox(height: 10),
               TextField(
                 controller: emailController,
@@ -139,16 +140,17 @@ Future<void> registerUser() async {
                   filled: true,
                   fillColor: Colors.white,
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.circular(30.0),
                   borderSide: BorderSide.none,
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  borderSide: const BorderSide(color: Colors.blue),
+                  borderRadius: BorderRadius.circular(30.0),
+                  borderSide: const BorderSide(color: Color.fromARGB(255, 1, 32, 57)),
                   ),
                 ),
                 keyboardType: TextInputType.emailAddress,
               ),
+
               const SizedBox(height: 10),
               TextField(
                 controller: passwordController,
@@ -158,15 +160,16 @@ Future<void> registerUser() async {
                   filled: true,
                   fillColor: Colors.white,
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.circular(30.0),
                   borderSide: BorderSide.none,
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  borderSide: const BorderSide(color: Colors.blue),
+                  borderRadius: BorderRadius.circular(30.0),
+                  borderSide: const BorderSide(color: Color.fromARGB(255, 1, 32, 57)),
                   ),
                 ),
               ),
+
               const SizedBox(height: 10),
               TextField(
                 controller: confirmPasswordController,
@@ -176,15 +179,16 @@ Future<void> registerUser() async {
                   filled: true,
                   fillColor: Colors.white,
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.circular(30.0),
                   borderSide: BorderSide.none,
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  borderSide: const BorderSide(color: Colors.blue),
+                  borderRadius: BorderRadius.circular(30.0),
+                  borderSide: const BorderSide(color: Color.fromARGB(255, 1, 32, 57)),
                   ),
                 ),
               ),
+
               const SizedBox(height: 20),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(

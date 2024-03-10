@@ -5,7 +5,7 @@ import 'top_match.dart'; // Make sure to import the TopMatch page correctly
 import 'product_model.dart'; // Make sure to import the Product class correctly
 
 class ProductSearch extends StatefulWidget {
-  const ProductSearch({Key? key}) : super(key: key);
+  const ProductSearch({super.key});
 
   @override
   _ProductSearchState createState() => _ProductSearchState();
@@ -56,7 +56,7 @@ class _ProductSearchState extends State<ProductSearch> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: const Color.fromARGB(205, 33, 149, 243),
       appBar: AppBar(
         backgroundColor: Colors.blue,
         leading: IconButton(
@@ -81,8 +81,8 @@ class _ProductSearchState extends State<ProductSearch> {
                   filled: true,
                   fillColor: Colors.white,
                   hintText: 'Search',
-                  hintStyle: const TextStyle(color: Colors.grey),
-                  prefixIcon: const Icon(Icons.search, color: Colors.grey),
+                  hintStyle: const TextStyle(color: Color.fromARGB(205, 33, 149, 243)),
+                  prefixIcon: const Icon(Icons.search, color: Color.fromARGB(205, 33, 149, 243)),
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0), borderSide: BorderSide.none),
                   focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0), borderSide: const BorderSide(color: Colors.white)),
                 ),
