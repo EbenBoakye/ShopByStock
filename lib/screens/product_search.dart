@@ -24,7 +24,7 @@ class _ProductSearchState extends State<ProductSearch> {
     Map<String, String> queryParams = {
       input.contains(RegExp(r'^\d+$')) ? 'barcode' : 'title': input,
       'formatted': 'y',
-      'key': 'fi4jjhtjuesh99e8bynyct2gkxyffd', // Use your actual API key
+      'key': 'l4fe73fs298334k2yol63h4l5mzhzh', // Use your actual API key
     };
 
     try {
@@ -56,7 +56,7 @@ class _ProductSearchState extends State<ProductSearch> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(205, 33, 149, 243),
+      backgroundColor: const Color.fromARGB(255, 22, 98, 160),
       appBar: AppBar(
         backgroundColor: Colors.blue,
         leading: IconButton(
@@ -73,7 +73,7 @@ class _ProductSearchState extends State<ProductSearch> {
           child: Column(
             children: [
               const SizedBox(height: 90),
-              const Text('Type a product name or barcode', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24)),
+              const Text('Type a product name or barcode 😁', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20)),
               const SizedBox(height: 30),
               TextField(
                 controller: _searchController,
@@ -83,8 +83,8 @@ class _ProductSearchState extends State<ProductSearch> {
                   hintText: 'Search',
                   hintStyle: const TextStyle(color: Color.fromARGB(205, 33, 149, 243)),
                   prefixIcon: const Icon(Icons.search, color: Color.fromARGB(205, 33, 149, 243)),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0), borderSide: BorderSide.none),
-                  focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0), borderSide: const BorderSide(color: Colors.white)),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0), borderSide: BorderSide.none),
+                  focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0), borderSide: const BorderSide(color: Colors.white)),
                 ),
                 style: const TextStyle(color: Colors.black),
               ),

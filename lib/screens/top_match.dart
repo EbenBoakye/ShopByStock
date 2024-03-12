@@ -9,7 +9,7 @@ class TopMatch extends StatelessWidget {
 
   Future<void> checkBarcode(String barcode, BuildContext context) async {
     final querySnapshot = await FirebaseFirestore.instance
-      .collection('products') // Ensure this is your intended collection
+      .collection('shop_products') // Ensure this is your intended collection
       .where('barcode', isEqualTo: barcode)
       .get();
 
@@ -51,7 +51,7 @@ class TopMatch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(205, 33, 149, 243),
+      backgroundColor: const Color.fromARGB(255, 22, 98, 160),
       appBar: AppBar(
         backgroundColor: Colors.blue,
         leading: IconButton(

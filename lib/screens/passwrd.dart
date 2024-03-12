@@ -38,7 +38,7 @@ class ForgotPasswordPage extends StatelessWidget {
           },
         ),
       ),
-      backgroundColor: const Color.fromARGB(205, 33, 149, 243),
+      backgroundColor: const Color.fromARGB(255, 22, 98, 160),
       body: Center(
         child: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
@@ -86,7 +86,7 @@ class ForgotPasswordPage extends StatelessWidget {
                 backgroundColor: const Color.fromARGB(255, 18, 62, 97),
                 foregroundColor: Colors.white,
               ),
-              child: const Text('Send Reset Link'),
+              child: const Text('Send Reset Link 🔗'),
             ),
           ],
         ),

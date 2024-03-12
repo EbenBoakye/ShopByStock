@@ -62,7 +62,7 @@ Future<void> registerUser() async {
 
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(205, 33, 149, 243),
+      backgroundColor: Color.fromARGB(255, 22, 98, 160),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(205, 33, 149, 243),
         elevation: 0,
@@ -136,7 +136,7 @@ Future<void> registerUser() async {
               TextField(
                 controller: emailController,
                 decoration: InputDecoration(
-                  labelText: 'Email:',
+                  labelText: '📧Email:',
                   filled: true,
                   fillColor: Colors.white,
                   border: OutlineInputBorder(
@@ -200,7 +200,7 @@ Future<void> registerUser() async {
                   padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                 ),
                 onPressed: registerUser,
-                child: const Text('Sign me Up'),
+                child: const Text('Sign me Up!🎉'),
               ),
             ],
           ),

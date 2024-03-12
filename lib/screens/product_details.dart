@@ -49,7 +49,7 @@ class _AddProductDetailsState extends State<AddProductDetails> {
         title: const Text('Product Details', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
         backgroundColor: Colors.blue,
       ),
-      backgroundColor: const Color.fromARGB(205, 33, 149, 243),
+      backgroundColor: const Color.fromARGB(255, 22, 98, 160),
       body: Center(
         child: SingleChildScrollView(
           child: Padding(

@@ -28,12 +28,12 @@ class Homepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-     //home: const ShopBystock(),
+     home: const ShopBystock(),
        //home: const RegistrationPage(),
      //home: const TopMatch(products: [], productName: null,),
       //home: const ProductSearch(),
       //home: const LoginPage(),
-      home: ForgotPasswordPage(),
+      //home: ForgotPasswordPage(),
       //home: const AddProduct(),
       //home: const AddProductDetails(scannedBarcode: '',),
       //initialRoute: '/main',
@@ -47,6 +47,8 @@ class Homepage extends StatelessWidget {
       '/main': (context) => const ShopBystock(),
       '/home': (context) => const AddProduct(),
       '/product_details': (context) => const AddProductDetails(scannedBarcode: '',),
+      
+      
      },
     );
   }

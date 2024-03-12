@@ -27,7 +27,7 @@ class LoginPage extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(205, 33, 149, 243),
+      backgroundColor: const Color.fromARGB(255, 22, 98, 160),
       appBar: AppBar(
         backgroundColor: Colors.blue,
         elevation: 0,
@@ -52,7 +52,7 @@ class LoginPage extends StatelessWidget {
               TextField(
                 controller: emailController,
                 decoration: InputDecoration(
-                  labelText: 'Enter Email:',
+                  labelText: '📧Enter Email:',
                   filled: true,
                   fillColor: Colors.white,
                   border: OutlineInputBorder(
@@ -94,7 +94,7 @@ class LoginPage extends StatelessWidget {
                   ),
                   padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                 ),
-                child: const Text('Login'),
+                child: const Text(' Login🔑'),
               ),
               TextButton(
                 onPressed: () {
