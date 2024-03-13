@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'top_match.dart'; // Make sure to import the TopMatch page correctly
-import 'product_model.dart'; // Make sure to import the Product class correctly
+import 'top_match.dart'; // Ensure this is the correct path to your TopMatch page
+import 'product_model.dart'; // Ensure this is the correct path to your Product model
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 class ProductSearch extends StatefulWidget {
-  const ProductSearch({super.key});
+  const ProductSearch({Key? key}) : super(key: key);
 
   @override
   _ProductSearchState createState() => _ProductSearchState();
@@ -20,11 +21,10 @@ class _ProductSearchState extends State<ProductSearch> {
       _isLoading = true;
     });
 
-    // Define query parameters based on input type
     Map<String, String> queryParams = {
       input.contains(RegExp(r'^\d+$')) ? 'barcode' : 'title': input,
       'formatted': 'y',
-      'key': 'l4fe73fs298334k2yol63h4l5mzhzh', // Use your actual API key
+      'key': 'l4fe73fs298334k2yol63h4l5mzhzh',
     };
 
     try {
@@ -33,15 +33,20 @@ class _ProductSearchState extends State<ProductSearch> {
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        List<Product> products = List<Product>.from((data['products'] as List).map((productData) => Product.fromJson(productData)));
+        List<Product> products = List<Product>.from((data['products'] as List)
+            .map((productData) => Product.fromJson(productData)));
 
-        // Navigate to TopMatch with the list of Product objects
-        Navigator.push(context, MaterialPageRoute(builder: (context) => TopMatch(products: products, productName: null,)));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TopMatch(products: products, productName: null,),
+          ),
+        );
       } else {
-        _showError('Product not found.'); // Use the _showError method for user feedback
+        _showError('Product not found.');
       }
     } catch (e) {
-      _showError('An error occurred.'); // Use the _showError method for error feedback
+      _showError('An error occurred.');
     } finally {
       setState(() {
         _isLoading = false;
@@ -49,8 +54,30 @@ class _ProductSearchState extends State<ProductSearch> {
     }
   }
 
+  Future<void> scanBarcode() async {
+    try {
+      String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+        "#ff6666",
+        "Cancel",
+        true,
+        ScanMode.BARCODE,
+      );
+
+      if (barcodeScanRes == '-1') {
+        _showError('Scan cancelled.');
+        return;
+      }
+
+      performSearch(barcodeScanRes);
+    } catch (e) {
+      _showError('Failed to scan barcode: $e');
+    }
+  }
+
   void _showError(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
+    );
   }
 
   @override
@@ -61,12 +88,11 @@ class _ProductSearchState extends State<ProductSearch> {
         backgroundColor: Colors.blue,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.pushNamed(context, '/main'), // Handle back navigation
+          onPressed: () => Navigator.pushNamed(context, '/landing_page'),
         ),
         title: Image.asset('assets/images/shopby.png', fit: BoxFit.cover, height: 250),
         elevation: 0,
       ),
-      
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
@@ -101,7 +127,19 @@ class _ProductSearchState extends State<ProductSearch> {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
                   padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                 ),
-                child: const Text('Submit'),
+                child: const Text('Search by Name', style: TextStyle(color: Colors.white), textAlign: TextAlign.center), // Add some spacing 
+              ),
+              const SizedBox(height: 30),
+              ElevatedButton.icon(
+                onPressed: scanBarcode,
+                icon: const Icon(Icons.camera_alt, color: Colors.white),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 18, 62, 97),
+                  foregroundColor: const Color.fromARGB(255, 255, 255, 255),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                ),
+                label:  const Text('Scan Barcode', style: TextStyle(color: Colors.white)),
               ),
               if (_isLoading) const CircularProgressIndicator(),
             ],

@@ -47,7 +47,7 @@ class Homepage extends StatelessWidget {
       '/main': (context) => const ShopBystock(),
       '/home': (context) => const AddProduct(),
       '/product_details': (context) => const AddProductDetails(scannedBarcode: '',),
-      
+      '/landing_page': (context) => const ShopBystock(),
       
      },
     );
