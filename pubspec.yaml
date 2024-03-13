@@ -41,7 +41,7 @@ dependencies:
   http: ^1.2.0
   geocoding: ^2.2.0
   flutter_barcode_scanner: ^2.0.0
-  # mobile_scanner: ^4.0.1
+  
   
 
 
