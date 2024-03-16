@@ -15,6 +15,7 @@ class RegistrationPage extends StatelessWidget {
     final TextEditingController confirmPasswordController = TextEditingController();
     final TextEditingController companyNocontroller = TextEditingController();
     final TextEditingController fullnameController = TextEditingController();
+    final TextEditingController shopnameController = TextEditingController();
     // Function to handle user registration
     
 
@@ -35,6 +36,7 @@ Future<void> registerUser() async {
       // Store user details including coordinates in Firestore
       await FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid).set({
         'fullname': fullnameController.text.trim(),
+        'shopname': shopnameController.text.trim(),
         'company number': companyNocontroller.text.trim(),
         'address': postcodeController.text.trim(),
         'latitude': latitude,
@@ -85,6 +87,23 @@ Future<void> registerUser() async {
                 controller: fullnameController,
                 decoration: InputDecoration(
                   labelText: 'Full name:',
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                  borderSide: BorderSide.none,
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                  borderSide: const BorderSide(color: Color.fromARGB(255, 1, 32, 57)),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              TextField(
+                controller: shopnameController,
+                decoration: InputDecoration(
+                  labelText: 'Shop name:',
                   filled: true,
                   fillColor: Colors.white,
                   border: OutlineInputBorder(
