@@ -8,8 +8,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:shopby/main.dart';
-import 'package:shopby/screens/landing_page.dart';
+import 'package:shopbystock/main.dart';
+import 'package:shopbystock/screens/landing_page.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {

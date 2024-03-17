@@ -6,7 +6,7 @@ import 'product_model.dart'; // Ensure this is the correct path to your Product 
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 class ProductSearch extends StatefulWidget {
-  const ProductSearch({Key? key}) : super(key: key);
+  const ProductSearch({super.key});
 
   @override
   _ProductSearchState createState() => _ProductSearchState();

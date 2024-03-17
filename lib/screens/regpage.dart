@@ -64,7 +64,7 @@ Future<void> registerUser() async {
 
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 22, 98, 160),
+      backgroundColor: const Color.fromARGB(255, 22, 98, 160),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(205, 33, 149, 243),
         elevation: 0,

@@ -1,52 +1,49 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'product_model.dart'; // Ensure this is correctly imported
+import 'package:shopbystock/screens/Shops_with_product.dart';
+import 'product_model.dart';
 
 class TopMatch extends StatelessWidget {
   final List<Product> products;
 
-  const TopMatch({super.key, required this.products, required productName});
+  const TopMatch({super.key, required this.products, required productName,});
 
-  Future<void> checkBarcode(String barcode, BuildContext context) async {
-    final querySnapshot = await FirebaseFirestore.instance
-      .collection('shop_products') // Ensure this is your intended collection
-      .where('barcode', isEqualTo: barcode)
-      .get();
+  Future<void> checkBarcode(String barcode, String productName ,BuildContext context) async {
+  final querySnapshot = await FirebaseFirestore.instance
+    .collection('shop_products') // Ensure this is your intended collection
+    .where('barcode', isEqualTo: barcode)
+    .get();
 
-    if (querySnapshot.docs.isNotEmpty) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Product Found'),
-            content: const Text('This product is available in the shop.'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: const Text('OK'),
-              ),
-            ],
-          );
-        },
-      );
-    } else {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Product Not Found'),
-            content: const Text('This product is not available in the shop.'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: const Text('OK'),
-              ),
-            ],
-          );
-        },
-      );
-    }
+  if (querySnapshot.docs.isNotEmpty) {
+    // Navigate to the new page that will display the shops with product in stock
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => ShopsWithProductPage(
+          barcode: barcode,
+          productName:productName // You need to pass the product name
+        ),
+      ),
+    );
+  } else {
+    // No matching barcode found, show an error dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Product Not Found'),
+          content: const Text('This product is not available in any shop.'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +55,7 @@ class TopMatch extends StatelessWidget {
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pushNamed(context, '/product_search'),
         ),
-        title: const Text('Search Results', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: const Text('Search Results', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -77,7 +74,7 @@ class TopMatch extends StatelessWidget {
 
   Widget _productCard(Product product, BuildContext context) {
     return GestureDetector(
-      onTap: () => checkBarcode(product.barcode, context),
+      onTap: () => checkBarcode(product.barcode, product.title, context),
       child: Card(
         elevation: 5,
         margin: const EdgeInsets.all(8.0),

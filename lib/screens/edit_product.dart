@@ -61,7 +61,8 @@ class _EditProductPageState extends State<EditProductPage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Update Successful'),
+            backgroundColor: Colors.white,
+            title: const Text('Update Successful', style: TextStyle(color: Colors.blue,fontWeight: FontWeight.bold),),
             content: const Text('The product details have been successfully updated.'),
             actions: <Widget>[
               TextButton(

@@ -41,7 +41,8 @@ dependencies:
   http: ^1.2.0
   geocoding: ^2.2.0
   flutter_barcode_scanner: ^2.0.0
-  
+  geolocator: ^11.0.0
+  google_maps_flutter: ^2.6.0
   
 
 
