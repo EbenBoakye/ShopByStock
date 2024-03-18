@@ -1,0 +1,191 @@
+import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geolocator/geolocator.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+
+
+class ShopDetailPage extends StatefulWidget {
+  final String shopName;
+  final double distance;
+  final int stockQuantity;
+  final String shopAddress;
+  final LatLng shopLocation;
+
+  const ShopDetailPage({
+    Key? key,
+    required this.shopName,
+    required this.distance,
+    required this.stockQuantity,
+    required this.shopAddress,
+    required this.shopLocation,
+  }) : super(key: key);
+
+  @override
+  _ShopDetailPageState createState() => _ShopDetailPageState();
+}
+
+class _ShopDetailPageState extends State<ShopDetailPage> {
+  late GoogleMapController mapController;
+  Set<Marker> markers = {};
+  Set<Polyline> polylines = {};
+  void _onMapCreated(GoogleMapController controller) {
+    mapController = controller;
+    _setMarkers();
+    _setPolylines();
+  }
+
+  void _setMarkers() {
+    markers.add(
+      Marker(
+        markerId: MarkerId('shopMarker'),
+        position: widget.shopLocation,
+        infoWindow: InfoWindow(title: widget.shopName),
+      ),
+    );
+    setState(() {});
+  }
+    Future<void> _setPolylines() async {
+  var currentPosition = await Geolocator.getCurrentPosition();
+  String googleMapsApiKey = 'AIzaSyDiHGf5VhUliqOGbZA1894UVP8MOs721jg'; // Replace with your API key
+  String routeUrl = 'https://maps.googleapis.com/maps/api/directions/json?origin=${currentPosition.latitude},${currentPosition.longitude}&destination=${widget.shopLocation.latitude},${widget.shopLocation.longitude}&key=$googleMapsApiKey';
+
+  var response = await http.get(Uri.parse(routeUrl));
+  if (response.statusCode == 200) {
+    Map responseBody = json.decode(response.body);
+
+    if (responseBody["status"] == "OK") {
+      var routePoints = _decodePolyline(responseBody["routes"][0]["overview_polyline"]["points"]);
+      setState(() {
+        polylines.add(Polyline(
+          polylineId: PolylineId('route'),
+          points: routePoints,
+          width: 4,
+          color: Colors.blue,
+        ));
+      });
+    } else {
+      print('Error: ${responseBody["status"]}');
+    }
+  } else {
+    print('Error: ${response.statusCode}');
+  }
+}
+
+List<LatLng> _decodePolyline(String encoded) {
+  List<LatLng> points = [];
+  int index = 0, len = encoded.length;
+  int lat = 0, lng = 0;
+
+  while (index < len) {
+    int b, shift = 0, result = 0;
+    do {
+      b = encoded.codeUnitAt(index++) - 63;
+      result |= (b & 0x1f) << shift;
+      shift += 5;
+    } while (b >= 0x20);
+    int dlat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+    lat += dlat;
+
+    shift = 0;
+    result = 0;
+    do {
+      b = encoded.codeUnitAt(index++) - 63;
+      result |= (b & 0x1f) << shift;
+      shift += 5;
+    } while (b >= 0x20);
+    int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+    lng += dlng;
+
+    points.add(LatLng((lat / 1E5).toDouble(), (lng / 1E5).toDouble()));
+  }
+  return points;
+}
+Future<Position> _determinePosition() async {
+  // Check if location services are enabled.
+  bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  if (!serviceEnabled) {
+    // Location services are not enabled, so return an error.
+    return Future.error('Location services are disabled.');
+  }
+
+  // Check for location permissions; request permissions if not already granted.
+  LocationPermission permission = await Geolocator.checkPermission();
+  if (permission == LocationPermission.denied) {
+    permission = await Geolocator.requestPermission();
+    if (permission == LocationPermission.denied) {
+      // Permissions are denied, throw an error.
+       return Future.error('Location permissions are denied');
+    }
+  }
+
+  if (permission == LocationPermission.deniedForever) {
+    // Permissions are permanently denied, throw an error.
+    throw ();
+  }
+
+  // Permissions are granted at this point, retrieve the current position.
+  Position position = await Geolocator.getCurrentPosition();
+  return position;
+}
+
+ @override
+Widget build(BuildContext context) {
+  // Get the total height of the screen
+  var screenHeight = MediaQuery.of(context).size.height;
+  // Decide how much height you want to give to the map and the details section
+  var mapHeight = screenHeight * 0.5; // for example, 50% of the screen height
+  var detailsHeight = screenHeight * 0.5; // remaining height for details
+
+  return Scaffold(
+    appBar: AppBar(
+      backgroundColor: Colors.blue,
+      title: Text(widget.shopName, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+    ),
+    backgroundColor: const Color.fromARGB(255, 22, 98, 160),
+    body: Column(
+      children: [
+        // Use a Container to constrain the height of the GoogleMap
+        Container(
+          height: mapHeight, // Adjust this for the map size you want
+          child: GoogleMap(
+            onMapCreated: _onMapCreated,
+            initialCameraPosition: CameraPosition(
+              target: widget.shopLocation,
+              zoom: 11.0,
+            ),
+            markers: markers,
+            polylines: polylines,
+            myLocationEnabled: true,
+          ),
+        ),
+        // Expanded to fill the remaining space for details
+        Expanded(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.shopName,
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+                  ),
+                  SizedBox(height: 8), // Spacing between text widgets
+                  Text('Address: ${widget.shopAddress}', style: TextStyle(color: Colors.white)),
+                  SizedBox(height: 8),
+                  Text('Distance: ${widget.distance.toStringAsFixed(2)} miles', style: TextStyle(color: Colors.white)),
+                  SizedBox(height: 8),
+                  Text('Stock quantity: ${widget.stockQuantity}', style: TextStyle(color: Colors.white)),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+}

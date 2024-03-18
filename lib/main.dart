@@ -7,6 +7,9 @@ import 'package:shopbystock/screens/regpage.dart';
 import 'package:shopbystock/screens/landing_page.dart';
 import 'package:shopbystock/screens/login.dart';
 import 'package:shopbystock/screens/product_search.dart';
+import 'package:shopbystock/screens/shop_admin_product.dart';
+import 'package:shopbystock/screens/shop_details_map';
+import 'package:shopbystock/screens/shops_with_product.dart';
 import 'package:shopbystock/screens/top_match.dart';
 import 'package:shopbystock/screens/product_details.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
@@ -48,6 +51,9 @@ class Homepage extends StatelessWidget {
       '/home': (context) => const AddProduct(),
       '/product_details': (context) => const AddProductDetails(scannedBarcode: '',),
       '/landing_page': (context) => const ShopBystock(),
+      '/shop_admin_products': (context) => const ShopAdminProductsPage(),
+      '/shop_with_product': (context) => const ShopsWithProductPage(barcode: '', productName: ''),
+      
       
      },
     );
