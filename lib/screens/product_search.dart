@@ -24,7 +24,7 @@ class _ProductSearchState extends State<ProductSearch> {
     Map<String, String> queryParams = {
       input.contains(RegExp(r'^\d+$')) ? 'barcode' : 'title': input,
       'formatted': 'y',
-      'key': 'l4fe73fs298334k2yol63h4l5mzhzh',
+      'key': 'fi4jjhtjuesh99e8bynyct2gkxyffd',
     };
 
     try {
