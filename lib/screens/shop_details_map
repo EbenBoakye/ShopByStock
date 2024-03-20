@@ -3,23 +3,25 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 
 class ShopDetailPage extends StatefulWidget {
   final String shopName;
   final double distance;
-  final int stockQuantity;
   final String shopAddress;
   final LatLng shopLocation;
-
+  final String? shopDocumentId;
+  final String proDocumentId;
   const ShopDetailPage({
     Key? key,
     required this.shopName,
     required this.distance,
-    required this.stockQuantity,
     required this.shopAddress,
     required this.shopLocation,
+     this.shopDocumentId, 
+    required this.proDocumentId,
   }) : super(key: key);
 
   @override
@@ -130,62 +132,68 @@ Future<Position> _determinePosition() async {
   return position;
 }
 
- @override
-Widget build(BuildContext context) {
-  // Get the total height of the screen
-  var screenHeight = MediaQuery.of(context).size.height;
-  // Decide how much height you want to give to the map and the details section
-  var mapHeight = screenHeight * 0.5; // for example, 50% of the screen height
-  var detailsHeight = screenHeight * 0.5; // remaining height for details
-
-  return Scaffold(
-    appBar: AppBar(
-      backgroundColor: Colors.blue,
-      title: Text(widget.shopName, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-    ),
-    backgroundColor: const Color.fromARGB(255, 22, 98, 160),
-    body: Column(
-      children: [
-        // Use a Container to constrain the height of the GoogleMap
-        Container(
-          height: mapHeight, // Adjust this for the map size you want
-          child: GoogleMap(
-            onMapCreated: _onMapCreated,
-            initialCameraPosition: CameraPosition(
-              target: widget.shopLocation,
-              zoom: 10.5,
-            ),
-            markers: markers,
-            polylines: polylines,
-            myLocationEnabled: true,
-          ),
-        ),
-        // Expanded to fill the remaining space for details
-        Expanded(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.shopName,
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
-                  ),
-                  SizedBox(height: 8), // Spacing between text widgets
-                  Text('Address: ${widget.shopAddress}', style: TextStyle(color: Colors.white)),
-                  SizedBox(height: 8),
-                  Text('Distance: ${widget.distance.toStringAsFixed(2)} miles', style: TextStyle(color: Colors.white)),
-                  SizedBox(height: 8),
-                  Text('Stock quantity: ${widget.stockQuantity}', style: TextStyle(color: Colors.white)),
-                ],
+@override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        title: Text(widget.shopName, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+      ),
+      backgroundColor: const Color.fromARGB(255, 22, 98, 160),
+      body: Column(
+        children: [
+          Expanded(
+            flex: 5, // Adjust the flex to control the height ratio of the map
+            child: GoogleMap(
+              onMapCreated: _onMapCreated,
+              initialCameraPosition: CameraPosition(
+                target: widget.shopLocation,
+                zoom: 10.5,
               ),
+              markers: markers,
+              polylines: polylines,
+              myLocationEnabled: true,
             ),
           ),
-        ),
-      ],
-    ),
-  );
-}
+          Expanded(
+            flex: 5, // Adjust the flex to control the height ratio of the details section
+            child: StreamBuilder<DocumentSnapshot>(
+              stream: FirebaseFirestore.instance.collection('shop_products').doc(widget.proDocumentId).snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                }
+                if (!snapshot.hasData || snapshot.hasError) {
+                  return Center(child: Text('Unable to load stock data'));
+                }
+                var shopData = snapshot.data!.data() as Map<String, dynamic>;
+                int stockQuantity = shopData['quantity'] ?? 0;
 
+                return SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.shopName,
+                          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+                        ),
+                        SizedBox(height: 8),
+                        Text('Address: ${widget.shopAddress}', style: TextStyle(color: Colors.white)),
+                        SizedBox(height: 8),
+                        Text('Distance: ${widget.distance.toStringAsFixed(2)} miles', style: TextStyle(color: Colors.white)),
+                        SizedBox(height: 8),
+                        Text('Stock quantity: $stockQuantity', style: TextStyle(color: Colors.white)),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

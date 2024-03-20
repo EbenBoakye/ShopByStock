@@ -16,7 +16,7 @@ class ShopsWithProductPage extends StatelessWidget {
       backgroundColor: const Color.fromARGB(255, 22, 98, 160),
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        title: const Text('Shops with Product', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+        title: const Text('Shops with Your Product', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
       ),
       
       body: FutureBuilder<Position>(
@@ -62,10 +62,11 @@ class ShopsWithProductPage extends StatelessWidget {
                       MaterialPageRoute(
                         builder: (context) => ShopDetailPage (
                           shopName: shop.name,
-                          stockQuantity: shop.quantity,
+                          proDocumentId: shop.proDocumentId,
+                         // stockQuantity: shop.quantity,
                           shopAddress: shop.address,
                           distance: shop.distance,
-                          shopLocation: shop.location// Set the location to 0, 0 for now
+                          shopLocation: shop.location, // Set the location to 0, 0 for now
                          
                         ),
                       ),
@@ -112,7 +113,9 @@ class ShopsWithProductPage extends StatelessWidget {
       quantity: shopData['quantity'],
       distance: distanceInMiles,
       address: userData['address'], // Make sure this is fetched correctly from userData
-      location: shopLatLng, // Pass the LatLng object
+      location: shopLatLng, 
+      proDocumentId: doc.id // Add the document ID of the shop product,
+       // Pass the LatLng object
     ));
   }
 
@@ -160,13 +163,15 @@ class ShopWithProduct {
   int quantity;
   double distance;
   String address;
-  LatLng location; // Add LatLng property
+  LatLng location; 
+  String proDocumentId; // Add LatLng property
 
   ShopWithProduct({
     required this.name,
     required this.quantity,
     required this.distance,
     required this.address,
-    required this.location, // Initialize it in the constructor
+    required this.location,
+    required this.proDocumentId // Initialize it in the constructor
   });
 }
