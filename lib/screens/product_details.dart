@@ -14,7 +14,8 @@ class AddProductDetails extends StatefulWidget {
 class _AddProductDetailsState extends State<AddProductDetails> {
   final _productNameController = TextEditingController();
   final _productQuantityController = TextEditingController();
-
+  
+   // Function to add a product to the shop
   Future<void> _addProduct() async {
     final productName = _productNameController.text;
     final productQuantity = int.tryParse(_productQuantityController.text) ?? 0;
@@ -23,7 +24,7 @@ class _AddProductDetailsState extends State<AddProductDetails> {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter a product name')));
       return;
     }
-
+    // Check if the product quantity is a valid number
     try {
       final user = FirebaseAuth.instance.currentUser;
       if (user != null) {
