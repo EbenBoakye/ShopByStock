@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shopbystock/firebase_options.dart';
 import 'package:shopbystock/screens/home.dart';
 import 'package:shopbystock/screens/passwrd.dart';
@@ -53,6 +54,7 @@ class Homepage extends StatelessWidget {
       '/landing_page': (context) => const ShopBystock(),
       '/shop_admin_products': (context) => const ShopAdminProductsPage(),
       '/shop_with_product': (context) => const ShopsWithProductPage(barcode: '', productName: ''),
+      '/shop_details_map': (context) => const ShopDetailPage(shopName: '', distance: 0, shopAddress: '', shopLocation: LatLng(0, 0), proDocumentId: ''),
       
       
      },
