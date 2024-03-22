@@ -4,6 +4,8 @@ import 'package:geolocator/geolocator.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 
 
@@ -132,6 +134,23 @@ Future<Position> _determinePosition() async {
   return position;
 }
 
+Future<void> _launchMaps(LatLng location, String address) async {
+  var mapsUrl = 'https://www.google.com/maps/search/?api=1&query=${location.latitude},${location.longitude}';
+  var appleMapsUrl = 'https://maps.apple.com/?q=$address';
+  var wazeUrl = 'waze://?ll=${location.latitude},${location.longitude}&navigate=yes';
+
+  if (await canLaunch(mapsUrl)) {
+    await launch(mapsUrl);
+  } else if (await canLaunch(appleMapsUrl)) {
+    await launch(appleMapsUrl);
+  } else if (await canLaunch(wazeUrl)) {
+    await launch(wazeUrl);
+  } else {
+    throw 'Could not launch map';
+  }
+}
+
+
 @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -185,6 +204,15 @@ Future<Position> _determinePosition() async {
                         Text('Distance: ${widget.distance.toStringAsFixed(2)} miles', style: TextStyle(color: Colors.white)),
                         SizedBox(height: 8),
                         Text('Stock quantity: $stockQuantity', style: TextStyle(color: Colors.white)),
+                        SizedBox(height: 16),
+                        ElevatedButton(
+                          onPressed: () => _launchMaps(widget.shopLocation, widget.shopAddress),
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 33, 149, 243),
+                            padding: MaterialStateProperty.all(EdgeInsets.all(16)),
+                          ),
+                          child: Text('Get Directions', style: TextStyle(color: Colors.white)),
+                        ),
                       ],
                     ),
                   ),

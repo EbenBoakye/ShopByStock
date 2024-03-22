@@ -6,6 +6,12 @@
     <string>Camera permission is required for barcode scanning.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<key>LSApplicationQueriesSchemes</key>
+    <array>
+    <string>comgooglemaps</string>
+  	<string>waze</string>
+    </array>
+	<key>NSAppTransportSecurity</key>
 	<key>NSLocationWhenInUseUsageDescription</key>
     <string>This app needs access to location when open to find nearby shops.</string>
     <key>NSLocationAlwaysUsageDescription</key>
