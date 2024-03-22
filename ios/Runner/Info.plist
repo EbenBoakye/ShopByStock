@@ -8,10 +8,9 @@
 	<true/>
 	<key>LSApplicationQueriesSchemes</key>
     <array>
-    <string>comgooglemaps</string>
-  	<string>waze</string>
+        <string>comgooglemaps</string>
+  	    <string>waze</string>
     </array>
-	<key>NSAppTransportSecurity</key>
 	<key>NSLocationWhenInUseUsageDescription</key>
     <string>This app needs access to location when open to find nearby shops.</string>
     <key>NSLocationAlwaysUsageDescription</key>

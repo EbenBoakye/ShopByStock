@@ -106,6 +106,7 @@ List<LatLng> _decodePolyline(String encoded) {
   }
   return points;
 }
+
 Future<Position> _determinePosition() async {
   // Check if location services are enabled.
   bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -134,20 +135,52 @@ Future<Position> _determinePosition() async {
   return position;
 }
 
-Future<void> _launchMaps(LatLng location, String address) async {
-  var mapsUrl = 'https://www.google.com/maps/search/?api=1&query=${location.latitude},${location.longitude}';
-  var appleMapsUrl = 'https://maps.apple.com/?q=$address';
-  var wazeUrl = 'waze://?ll=${location.latitude},${location.longitude}&navigate=yes';
+void _launchMaps(BuildContext context, LatLng shopLocation, String shopAddress) async {
+  // URLs for different maps apps
+  final String googleMapsUrl = 'comgooglemaps://?q=${shopLocation.latitude},${shopLocation.longitude}&zoom=14';
+  final String wazeUrl = 'waze://?ll=${shopLocation.latitude},${shopLocation.longitude}&navigate=yes';
+  final String appleMapsUrl = 'https://maps.apple.com/?q=${shopLocation.latitude},${shopLocation.longitude}';
 
-  if (await canLaunch(mapsUrl)) {
-    await launch(mapsUrl);
-  } else if (await canLaunch(appleMapsUrl)) {
-    await launch(appleMapsUrl);
-  } else if (await canLaunch(wazeUrl)) {
-    await launch(wazeUrl);
-  } else {
-    throw 'Could not launch map';
-  }
+  // Check which map apps are installed
+  final bool canLaunchGoogleMaps = await canLaunch(googleMapsUrl);
+  final bool canLaunchWaze = await canLaunch(wazeUrl);
+
+  // Create a simple dialog option
+ // Create a simple dialog option with text color set to blue
+Widget dialogOption(String title, VoidCallback onTap) {
+  return SimpleDialogOption(
+    onPressed: onTap,
+    child: Text(
+      title,
+      style: TextStyle(fontSize: 18, color: Colors.blue), // Set the color to blue here
+    ),
+  );
+}
+  // Show dialog with options
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return SimpleDialog(
+        title: const Text('Choose a maps app'),
+        children: <Widget>[
+          if (canLaunchGoogleMaps)
+            dialogOption('Google Maps',() {
+              launch(googleMapsUrl);
+              Navigator.of(context).pop();
+            },),
+          if (canLaunchWaze)
+            dialogOption('Waze', () {
+              launch(wazeUrl);
+              Navigator.of(context).pop();
+            }),
+          dialogOption('Apple Maps', () {
+            launch(appleMapsUrl);
+            Navigator.of(context).pop();
+          }),
+        ],
+      );
+    },
+  );
 }
 
 
@@ -188,35 +221,36 @@ Future<void> _launchMaps(LatLng location, String address) async {
                 var shopData = snapshot.data!.data() as Map<String, dynamic>;
                 int stockQuantity = shopData['quantity'] ?? 0;
 
-                return SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          widget.shopName,
-                          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+               return SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.shopName,
+                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+                      ),
+                      SizedBox(height: 8),
+                      Text('Address: ${widget.shopAddress}', style: TextStyle(color: Colors.white)),
+                      SizedBox(height: 8),
+                      Text('Distance: ${widget.distance.toStringAsFixed(2)} miles', style: TextStyle(color: Colors.white)),
+                      SizedBox(height: 8),
+                      Text('Stock quantity: $stockQuantity', style: TextStyle(color: Colors.white)),
+                      SizedBox(height: 16),
+                      ElevatedButton(
+                        onPressed: () => _launchMaps(context, widget.shopLocation, widget.shopAddress), // Corrected the order of parameters
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromARGB(255, 18, 62, 97),
+                          padding: EdgeInsets.all(16),
                         ),
-                        SizedBox(height: 8),
-                        Text('Address: ${widget.shopAddress}', style: TextStyle(color: Colors.white)),
-                        SizedBox(height: 8),
-                        Text('Distance: ${widget.distance.toStringAsFixed(2)} miles', style: TextStyle(color: Colors.white)),
-                        SizedBox(height: 8),
-                        Text('Stock quantity: $stockQuantity', style: TextStyle(color: Colors.white)),
-                        SizedBox(height: 16),
-                        ElevatedButton(
-                          onPressed: () => _launchMaps(widget.shopLocation, widget.shopAddress),
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 33, 149, 243),
-                            padding: MaterialStateProperty.all(EdgeInsets.all(16)),
-                          ),
-                          child: Text('Get Directions', style: TextStyle(color: Colors.white)),
-                        ),
-                      ],
-                    ),
+                        child: Text('Get Directions', style: TextStyle(color: Colors.white)),
+                      ),
+
+                    ],
                   ),
-                );
+                ),
+              );
               },
             ),
           ),
