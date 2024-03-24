@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shopbystock/screens/background.dart';
 import 'product_item.dart'; // Import your ProductItem widget
 
 class ShopAdminProductsPage extends StatefulWidget {
@@ -21,7 +22,10 @@ class _ShopAdminProductsPageState extends State<ShopAdminProductsPage> {
         backgroundColor: Colors.blue,
       ),
       backgroundColor: const Color.fromARGB(255, 22, 98, 160),
-      body: StreamBuilder<QuerySnapshot>(
+       body: Container(
+        decoration: backgroundImageBoxDecoration(),
+        child:
+       StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection('shop_products')
             .where('userId', isEqualTo: user?.uid)
@@ -46,6 +50,6 @@ class _ShopAdminProductsPageState extends State<ShopAdminProductsPage> {
           );
         },
       ),
-    );
+    ));
   }
 }

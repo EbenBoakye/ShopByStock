@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shopbystock/screens/background.dart';
 import 'dart:convert';
 import 'top_match.dart'; // Ensure this is the correct path to your TopMatch page
 import 'product_model.dart'; // Ensure this is the correct path to your Product model
@@ -93,13 +94,16 @@ class _ProductSearchState extends State<ProductSearch> {
         title: Image.asset('assets/images/shopby.png', fit: BoxFit.cover, height: 250),
         elevation: 0,
       ),
-      body: Center(
+      body: Container(
+        decoration: backgroundImageBoxDecoration(),
+        child:
+       Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
               const SizedBox(height: 90),
-              const Text('Type a product name or barcode 😁', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20)),
+              const Text('Type a product name or barcode', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20)),
               const SizedBox(height: 30),
               TextField(
                 controller: _searchController,
@@ -146,6 +150,6 @@ class _ProductSearchState extends State<ProductSearch> {
           ),
         ),
       ),
-    );
+    ));
   }
 }

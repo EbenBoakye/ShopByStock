@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:shopbystock/screens/background.dart';
 
 class RegistrationPage extends StatelessWidget {
   const RegistrationPage({super.key});
@@ -64,7 +65,7 @@ Future<void> registerUser() async {
 
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 22, 98, 160),
+      backgroundColor: const Color.fromARGB(255, 1, 21, 38),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(205, 33, 149, 243),
         elevation: 0,
@@ -76,7 +77,11 @@ Future<void> registerUser() async {
         ),
         title: const Text('Registration', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
       ),
-      body: Padding(
+      body: Container(
+        decoration: backgroundImageBoxDecoration(),
+        child:
+
+      Padding(
         padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
           child: Column(
@@ -225,7 +230,7 @@ Future<void> registerUser() async {
           ),
         ),
       ),
-    );
+     ) );
   }
 }
 

@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:shopbystock/screens/background.dart';
 
 
 
@@ -192,7 +192,10 @@ Widget dialogOption(String title, VoidCallback onTap) {
         title: Text(widget.shopName, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
       ),
       backgroundColor: const Color.fromARGB(255, 22, 98, 160),
-      body: Column(
+       body: Container(
+        decoration: backgroundImageBoxDecoration(),
+        child:
+      Column(
         children: [
           Expanded(
             flex: 5, // Adjust the flex to control the height ratio of the map
@@ -255,7 +258,7 @@ Widget dialogOption(String title, VoidCallback onTap) {
             ),
           ),
         ],
-      ),
+      )  ),
     );
   }
 }

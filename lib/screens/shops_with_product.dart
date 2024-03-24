@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:shopbystock/screens/background.dart';
 import 'package:shopbystock/screens/shop_details_map';
 
 class ShopsWithProductPage extends StatelessWidget {
@@ -19,7 +20,10 @@ class ShopsWithProductPage extends StatelessWidget {
         title: const Text('Shops with Your Product', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
       ),
       
-      body: FutureBuilder<Position>(
+       body: Container(
+        decoration: backgroundImageBoxDecoration(),
+        child:
+        FutureBuilder<Position>(
         future: _determinePosition(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -79,8 +83,8 @@ class ShopsWithProductPage extends StatelessWidget {
             },
           );
         },
-      ),
-    );
+       ),
+    ));
   }
 
   Future<List<ShopWithProduct>> getShopsWithProduct(String barcode, Position userPosition) async {

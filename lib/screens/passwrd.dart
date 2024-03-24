@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shopbystock/screens/background.dart';
 
 class ForgotPasswordPage extends StatelessWidget {
   ForgotPasswordPage({super.key});
@@ -39,7 +40,10 @@ class ForgotPasswordPage extends StatelessWidget {
         ),
       ),
       backgroundColor: const Color.fromARGB(255, 22, 98, 160),
-      body: Center(
+       body: Container(
+        decoration: backgroundImageBoxDecoration(),
+        child:
+       Center(
         child: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -62,11 +66,11 @@ class ForgotPasswordPage extends StatelessWidget {
                 labelText: 'Email Address',
                 labelStyle: const TextStyle(color: Colors.black),
                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
+                  borderRadius: BorderRadius.circular(30.0),
                   borderSide: BorderSide.none,
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
+                  borderRadius: BorderRadius.circular(30.0),
                   borderSide: const BorderSide(color: Colors.white),
                 ),
               ),
@@ -92,6 +96,6 @@ class ForgotPasswordPage extends StatelessWidget {
         ),
       ),
       ),
-    );
+    ));
   }
 }

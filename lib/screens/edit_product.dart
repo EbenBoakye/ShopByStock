@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shopbystock/screens/background.dart';
 
 class EditProductPage extends StatefulWidget {
   final String documentID;
@@ -88,7 +89,10 @@ class _EditProductPageState extends State<EditProductPage> {
         title: const Text('Edit Product', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
         backgroundColor: Colors.blue,
       ),
-      body: Padding(
+       body: Container(
+        decoration: backgroundImageBoxDecoration(),
+        child:
+      Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
@@ -118,6 +122,6 @@ class _EditProductPageState extends State<EditProductPage> {
           ],
         ),
       ),
-    );
+    ));
   }
 }

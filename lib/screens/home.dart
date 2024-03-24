@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:shopbystock/screens/background.dart';
 import 'shop_admin_product.dart'; // Make sure this import points to your ShopAdminProductsPage widget file
 import 'product_details.dart'; // Ensure this import points to your AddProductDetails widget file
 
@@ -34,7 +35,10 @@ class AddProduct extends StatelessWidget {
         ),
         title: const Text('Add Product', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
       ),
-      body: Center(
+      body: Container(
+        decoration: backgroundImageBoxDecoration(),
+        child:
+      Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -62,6 +66,6 @@ class AddProduct extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ));
   }
 }

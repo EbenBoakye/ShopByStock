@@ -1,5 +1,6 @@
  import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shopbystock/screens/background.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -43,7 +44,10 @@ class LoginPage extends StatelessWidget {
           height: 250,
         ),
       ),
-      body: Center(
+       body: Container(
+        decoration: backgroundImageBoxDecoration(),
+        child:
+       Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -113,6 +117,6 @@ class LoginPage extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ));
   }
 }

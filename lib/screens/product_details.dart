@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shopbystock/screens/background.dart';
 
 class AddProductDetails extends StatefulWidget {
   final String scannedBarcode;
@@ -51,7 +52,10 @@ class _AddProductDetailsState extends State<AddProductDetails> {
         backgroundColor: Colors.blue,
       ),
       backgroundColor: const Color.fromARGB(255, 22, 98, 160),
-      body: Center(
+       body: Container(
+        decoration: backgroundImageBoxDecoration(),
+        child:
+      Center(
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(20.0),
@@ -102,6 +106,6 @@ class _AddProductDetailsState extends State<AddProductDetails> {
           ),
         ),
       ),
-    );
+    ));
   }
 }

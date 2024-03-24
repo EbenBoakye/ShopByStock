@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shopbystock/screens/Shops_with_product.dart';
+import 'package:shopbystock/screens/background.dart';
 import 'product_model.dart';
 
 class TopMatch extends StatelessWidget {
@@ -58,7 +59,10 @@ class TopMatch extends StatelessWidget {
         title: const Text('Search Results', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
         elevation: 0,
       ),
-      body: SingleChildScrollView(
+       body: Container(
+        decoration: backgroundImageBoxDecoration(),
+        child: 
+      SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: products.isEmpty
@@ -69,7 +73,7 @@ class TopMatch extends StatelessWidget {
                 ),
         ),
       ),
-    );
+    ));
   }
 
   Widget _productCard(Product product, BuildContext context) {
