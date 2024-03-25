@@ -5,6 +5,8 @@ import 'dart:convert';
 import 'top_match.dart'; // Ensure this is the correct path to your TopMatch page
 import 'product_model.dart'; // Ensure this is the correct path to your Product model
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class ProductSearch extends StatefulWidget {
   const ProductSearch({super.key});
@@ -16,6 +18,22 @@ class ProductSearch extends StatefulWidget {
 class _ProductSearchState extends State<ProductSearch> {
   final TextEditingController _searchController = TextEditingController();
   bool _isLoading = false;
+  
+  @override
+void initState() {
+  super.initState();
+  _loadLastSearch();
+}
+
+Future<void> _loadLastSearch() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? lastSearch = prefs.getString('last_search');
+  if (lastSearch != null) {
+    _searchController.text = lastSearch;
+    // Optionally perform the search automatically
+    // performSearch(lastSearch);
+  }
+}
 
   Future<void> performSearch(String input) async {
     setState(() {
@@ -27,6 +45,8 @@ class _ProductSearchState extends State<ProductSearch> {
       'formatted': 'y',
       'key': 'wxslnflzxykj38gzaub0rmjasjg4qz',
     };
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('last_search', input);
 
     try {
       final uri = Uri.https('api.barcodelookup.com', '/v3/products', queryParams);
