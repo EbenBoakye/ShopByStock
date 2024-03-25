@@ -84,7 +84,6 @@ Future<void> _deleteAccount(BuildContext context, String password) async {
 }
 
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
