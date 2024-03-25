@@ -18,6 +18,72 @@ class AddProduct extends StatelessWidget {
       ));
     }
   }
+  
+  void _showDeleteAccountDialog(BuildContext context) {
+  final TextEditingController passwordController = TextEditingController();
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        backgroundColor:Colors.white,
+        title: const Text('Delete Account', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold)),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text('Please enter your password to confirm:', style: TextStyle(color: Colors.blue)),
+            TextField(
+              controller: passwordController,
+              obscureText: true,
+              decoration: const InputDecoration(
+                labelText: 'Password', 
+              ),
+            ),
+          ],
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('Cancel', style: TextStyle(color: Colors.blue)),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          TextButton(
+            child: const Text('Delete Account', style: TextStyle(color: Colors.blue)),
+            onPressed: () {
+              _deleteAccount(context, passwordController.text);
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
+Future<void> _deleteAccount(BuildContext context, String password) async {
+  try {
+    User? user = FirebaseAuth.instance.currentUser;
+    
+    // Reauthenticate the user
+    AuthCredential credential = EmailAuthProvider.credential(
+      email: user!.email!,
+      password: password,
+    );
+    
+    await user.reauthenticateWithCredential(credential);
+
+    // Proceed to delete the account
+    await user.delete();
+    Navigator.of(context).pushReplacementNamed('/login');
+  } on FirebaseAuthException catch (e) {
+    // Handle errors, such as incorrect password
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Error: ${e.message}')),
+    );
+  }
+}
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +129,16 @@ class AddProduct extends StatelessWidget {
                 foregroundColor: Colors.white, // Icon and Text color
               ),
             ),
+            ElevatedButton.icon(
+              onPressed: () => _showDeleteAccountDialog(context),
+              icon: const Icon(Icons.delete_forever, color: Colors.white),
+              label: const Text('Delete My Account', style: TextStyle(color: Colors.white)),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color.fromARGB(255, 18, 62, 97), // Background color
+                foregroundColor: Colors.white, // Icon and Text color
+              ),
+            ),
+
           ],
         ),
       ),
