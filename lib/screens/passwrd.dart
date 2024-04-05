@@ -31,7 +31,7 @@ class ForgotPasswordPage extends StatelessWidget {
           'Forgot Password?', 
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color.fromARGB(255, 8, 114, 220),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {

@@ -19,7 +19,7 @@ class _ShopAdminProductsPageState extends State<ShopAdminProductsPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Products', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color.fromARGB(255, 8, 114, 220),
       ),
       backgroundColor: const Color.fromARGB(255, 22, 98, 160),
        body: Container(

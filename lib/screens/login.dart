@@ -30,7 +30,7 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 22, 98, 160),
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color.fromARGB(255, 8, 114, 220),
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),

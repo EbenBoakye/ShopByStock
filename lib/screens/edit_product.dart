@@ -87,7 +87,7 @@ class _EditProductPageState extends State<EditProductPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Edit Product', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color.fromARGB(255, 8, 114, 220),
       ),
        body: Container(
         decoration: backgroundImageBoxDecoration(),

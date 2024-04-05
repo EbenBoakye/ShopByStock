@@ -16,7 +16,7 @@ class ShopsWithProductPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 22, 98, 160),
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color.fromARGB(255, 8, 114, 220),
         title: const Text('Shops with Your Product', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
       ),
       

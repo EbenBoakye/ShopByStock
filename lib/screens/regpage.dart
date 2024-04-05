@@ -67,7 +67,7 @@ Future<void> registerUser() async {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 1, 21, 38),
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(205, 33, 149, 243),
+        backgroundColor: const Color.fromARGB(255, 8, 114, 220),
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),

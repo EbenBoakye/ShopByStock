@@ -23,7 +23,7 @@ class ProductItem extends StatelessWidget {
         return AlertDialog(
           backgroundColor: Colors.white,
           title: const Text('Delete Product', style: TextStyle(color: Colors.blue,fontWeight: FontWeight.bold),),
-          content: Text('Are you sure you want to delete "$name" from your product list?'),
+          content: Text('Are you sure you want to delete "$name" from your product list?', style: const TextStyle(color: Colors.blue)),
           actions: [
             TextButton(
               child: const Text('Cancel', style: TextStyle(color: Colors.blue),),

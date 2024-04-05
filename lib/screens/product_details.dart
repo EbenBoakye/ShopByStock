@@ -49,7 +49,7 @@ class _AddProductDetailsState extends State<AddProductDetails> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Product Details', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color.fromARGB(255, 8, 114, 220),
       ),
       backgroundColor: const Color.fromARGB(255, 22, 98, 160),
        body: Container(

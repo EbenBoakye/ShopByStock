@@ -36,7 +36,7 @@ class AddProduct extends StatelessWidget {
               controller: passwordController,
               obscureText: true,
               decoration: const InputDecoration(
-                labelText: 'Password', 
+                labelText: 'Password' , labelStyle: TextStyle(color: Colors.blue), 
               ),
             ),
           ],
@@ -89,7 +89,7 @@ Future<void> _deleteAccount(BuildContext context, String password) async {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 22, 98, 160),
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color.fromARGB(255, 8, 114, 220),
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.logout, color: Colors.white),
