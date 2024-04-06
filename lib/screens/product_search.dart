@@ -43,13 +43,13 @@ Future<void> _loadLastSearch() async {
     Map<String, String> queryParams = {
       input.contains(RegExp(r'^\d+$')) ? 'barcode' : 'title': input,
       'formatted': 'y',
-      'key': 'wxslnflzxykj38gzaub0rmjasjg4qz',
+      'key': '78mew22yb9l04igzz28chiaivs7ai5',
     };
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('last_search', input);
 
     try {
-      final uri = Uri.https('api.barcodelookup.com', '/v3/products', queryParams);
+      final uri = Uri.https('api.barcodelookup.com','/v3/products', queryParams);
       final response = await http.get(uri);
 
       if (response.statusCode == 200) {
