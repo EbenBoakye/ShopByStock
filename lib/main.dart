@@ -33,7 +33,7 @@ class Homepage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
      home: const ShopBystock(),
-       //home: const RegistrationPage(),
+      //home: const RegistrationPage(),
      //home: const TopMatch(products: [], productName: null,),
       //home: const ProductSearch(),
       //home: const LoginPage(),
