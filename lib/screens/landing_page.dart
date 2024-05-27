@@ -38,7 +38,14 @@ class _ShopBystockState extends State<ShopBystock>
     _controller.dispose();
     super.dispose();
   }
-
+//The UI of the landing page is defined in the build method of the _ShopBystockState class. 
+//The build method returns a Scaffold widget with a ListView as its body. 
+//The ListView contains a SlideTransition widget with an Image widget as its child. 
+//The Image widget displays an image of the ShopByStock landing page. 
+//Below the image, there are two ElevatedButton widgets that navigate to the product search page and the registration page when pressed. 
+//The ElevatedButton widgets are wrapped in a SlideTransition widget to animate their appearance on the screen. 
+//The last part of the ListView contains a RichText widget with a link to the login page. 
+//The link is styled to look like a hyperlink and has a TapGestureRecognizer that navigates to the login page when clicked.
   @override
   Widget build(BuildContext context) {
     return Scaffold(

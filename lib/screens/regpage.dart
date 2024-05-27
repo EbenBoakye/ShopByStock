@@ -23,7 +23,7 @@ class RegistrationPage extends StatelessWidget {
 Future<void> registerUser() async {
   if (passwordController.text == confirmPasswordController.text) {
     try {
-      // Use Geocoding to get latitude and longitude from postcode
+      // Use Geocoding to get latitude and longitude from address
       List<Location> locations = await locationFromAddress(postcodeController.text.trim());
       double latitude = locations.first.latitude;
       double longitude = locations.first.longitude;
@@ -64,6 +64,7 @@ Future<void> registerUser() async {
 }
 
 
+//Build the UI for the registration page with text fields and a button to register the shops
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 1, 21, 38),
       appBar: AppBar(

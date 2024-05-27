@@ -98,16 +98,16 @@ class _EditProductPageState extends State<EditProductPage> {
           children: [
             TextField(
               controller: _nameController,
-              decoration: const InputDecoration(labelText: 'Product Name', labelStyle: TextStyle(color: Colors.blue)),
+              decoration: const InputDecoration(labelText: 'Product Name', labelStyle: TextStyle(color: Colors.white)),
             ),
             TextField(
               controller: _barcodeController,
-              decoration: const InputDecoration(labelText: 'Barcode', labelStyle: TextStyle(color: Colors.blue)),
+              decoration: const InputDecoration(labelText: 'Barcode', labelStyle: TextStyle(color: Colors.white)),
               enabled: false, // Make barcode field read-only
             ),
             TextField(
               controller: _quantityController,
-              decoration: const InputDecoration(labelText: 'Quantity', labelStyle: TextStyle(color: Colors.blue)),
+              decoration: const InputDecoration(labelText: 'Quantity', labelStyle: TextStyle(color: Colors.white)),
               keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 20),

@@ -43,7 +43,7 @@ Future<void> _loadLastSearch() async {
     Map<String, String> queryParams = {
       input.contains(RegExp(r'^\d+$')) ? 'barcode' : 'title': input,
       'formatted': 'y',
-      'key': '78mew22yb9l04igzz28chiaivs7ai5',
+      'key': 'l4c5b8il49fhu4gpsf4qevqwle91dp',
     };
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('last_search', input);
@@ -101,6 +101,7 @@ Future<void> _loadLastSearch() async {
     );
   }
 
+//The UI of the product search page is defined in the build method of the _ProductSearchState class.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,6 +115,9 @@ Future<void> _loadLastSearch() async {
         title: Image.asset('assets/images/shopby.png', fit: BoxFit.cover, height: 250),
         elevation: 0,
       ),
+      //The body of the Scaffold widget is a Container widget with a background image and a Center widget as its child.
+      //The Center widget contains a SingleChildScrollView widget with a Column widget as its child.
+      //The Column widget displays a text field for the user to enter a product name or barcode.
       body: Container(
         decoration: backgroundImageBoxDecoration(),
         child:

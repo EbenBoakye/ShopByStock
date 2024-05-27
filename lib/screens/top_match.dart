@@ -4,6 +4,7 @@ import 'package:shopbystock/screens/Shops_with_product.dart';
 import 'package:shopbystock/screens/background.dart';
 import 'product_model.dart';
 
+// The TopMatch widget displays the search results for a product.
 class TopMatch extends StatelessWidget {
   final List<Product> products;
 
@@ -31,12 +32,12 @@ class TopMatch extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Product Not Found'),
-          content: const Text('This product is not available in any shop.'),
+          title: const Text('Product Not Found', style: TextStyle(color: Color.fromARGB(255, 8, 114, 220))),
+          content: const Text('This product is not available in any shop.', style: TextStyle(color: Color.fromARGB(255, 8, 114, 220))),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text('OK'),
+              child: const Text('OK', style: TextStyle(color: Color.fromARGB(255, 8, 114, 220))),
             ),
           ],
         );
@@ -44,7 +45,6 @@ class TopMatch extends StatelessWidget {
     );
   }
 }
-
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +75,6 @@ class TopMatch extends StatelessWidget {
       ),
     ));
   }
-
   Widget _productCard(Product product, BuildContext context) {
     return GestureDetector(
       onTap: () => checkBarcode(product.barcode, product.title, context),

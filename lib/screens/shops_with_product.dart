@@ -86,7 +86,8 @@ class ShopsWithProductPage extends StatelessWidget {
        ),
     ));
   }
-
+// The getShopsWithProduct function queries the shops that have the product by the barcode.
+// The function calculates the distance between the user's location and the shop's location using the Geolocator package.
   Future<List<ShopWithProduct>> getShopsWithProduct(String barcode, Position userPosition) async {
   var shops = <ShopWithProduct>[];
   var shopsCollection = FirebaseFirestore.instance.collection('shop_products');
