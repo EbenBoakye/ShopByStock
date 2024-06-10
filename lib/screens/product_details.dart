@@ -25,7 +25,7 @@ class _AddProductDetailsState extends State<AddProductDetails> {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please enter a product name')));
       return;
     }
-    // Check if the product quantity is a valid number
+    //  Add the product to the shop_products collection in Firestore
     try {
       final user = FirebaseAuth.instance.currentUser;
       if (user != null) {

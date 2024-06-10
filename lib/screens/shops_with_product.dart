@@ -108,7 +108,7 @@ class ShopsWithProductPage extends StatelessWidget {
       userData['longitude'],
     );
 
-    // Convert distance to miles, if necessary
+    // Convert distance to miles
     double distanceInMiles = distanceInMeters * 0.000621371;
 
     LatLng shopLatLng = LatLng(userData['latitude'], userData['longitude']); // Create a LatLng object
