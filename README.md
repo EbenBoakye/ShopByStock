@@ -39,7 +39,7 @@ Contributions to the project are welcome! Please fork the repository and submit 
 Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
-Your Name - boakye.ebenezer@aol.com
+Ebenezer Boakye - boakye.ebenezer@aol.com
 
 ## Acknowledgements
 - [Flutter](https://flutter.dev)
