@@ -41,7 +41,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## Contact
 Email - boakye.ebenezer@aol.com
 
-LinkedIn - https://www.linkedin.com/in/ebenezer-boakye-033093247?
+LinkedIn - https://www.linkedin.com/in/ebenezer-boakye-033093247
 
 
 ## Acknowledgements
