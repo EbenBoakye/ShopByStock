@@ -1,16 +1,53 @@
-# shopby
+# Shop by Stock
 
-A new Flutter project.
+## Overview
+Shop by Stock is a real-time inventory management application designed for local shop owners and customers. It facilitates the tracking of stock levels, enables shop owners to manage their products, and assists customers in finding products in nearby shops.
 
-## Getting Started
+## Features
+- **User Authentication:** Secure login and registration system for shop owners.
+- **Real-Time Inventory Updates:** Allows shop owners to update and track stock levels in real-time.
+- **Product Search:** Enables customers to search for products and see which nearby shops have them in stock.
+- **Navigation and Directions:** Integrates Google Maps API for directions to shops.
+- **Admin Product Management:** Allows shop owners to manage their product listings.
 
-This project is a starting point for a Flutter application.
+## Technologies Used
+- **Flutter:** Used for developing the cross-platform mobile application.
+- **Firebase:** Backend services including Firestore for database needs, Firebase Auth for user authentication, and Firebase Hosting.
+- **Google Maps API:** For fetching directions and displaying maps.
+- **Barcode Lookup API:** To fetch product details by scanning barcodes.
 
-A few resources to get you started if this is your first Flutter project:
+## Setup and Installation
+1. **Clone the repository:**
+2. **Navigate to the project directory:**
+3. **Install dependencies:**
+4. **Run the application:**
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+## Usage
+After launching the application, users can register as shop owners or log in if they already have an account. Once logged in, users can manage their inventory, update product details, and view analytics related to product sales and customer visits.
+
+## Future Work
+- **Product Insights:** Implement analytics for better inventory management.
+- **Microcontroller Integration:** To automatically update inventory levels in the database.
+- **Expanded API Integration:** Introduce more robust backend solutions to reduce reliance on Firebase.
+
+## Contributing
+Contributions to the project are welcome! Please fork the repository and submit a pull request with your features or fixes.
+
+## License
+Distributed under the MIT License. See `LICENSE` for more information.
+
+## Contact
+Email - boakye.ebenezer@aol.com
+
+LinkedIn - https://www.linkedin.com/in/ebenezer-boakye-033093247
+
+
+## Acknowledgements
+- [Flutter](https://flutter.dev)
+- [Firebase](https://firebase.google.com)
+- [Google Maps Platform](https://cloud.google.com/maps-platform/)
+- [Barcode Lookup](https://www.barcodelookup.com/api)
+
+   
