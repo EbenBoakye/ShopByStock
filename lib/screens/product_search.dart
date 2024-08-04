@@ -155,7 +155,7 @@ Future<void> _loadLastSearch() async {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
                   padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                 ),
-                child: const Text('Search by Name', style: TextStyle(color: Colors.white), textAlign: TextAlign.center), // Add some spacing 
+                child: const Text('Search', style: TextStyle(color: Colors.white), textAlign: TextAlign.center), // Add some spacing 
               ),
               const SizedBox(height: 30),
               ElevatedButton.icon(
