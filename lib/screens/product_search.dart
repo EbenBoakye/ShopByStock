@@ -43,7 +43,7 @@ Future<void> _loadLastSearch() async {
     Map<String, String> queryParams = {
       input.contains(RegExp(r'^\d+$')) ? 'barcode' : 'title': input,
       'formatted': 'y',
-      'key': '1ijtmzyiygxd2usbx0gk64ospy9lsd',
+      'key': 'ilf3f0s2h6j05xq3j4fb4qnwy7q4cf',
     };
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('last_search', input);
